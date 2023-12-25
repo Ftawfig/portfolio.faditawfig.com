@@ -1,0 +1,57 @@
+.navbar-main {
+    /*box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);*/
+    border-bottom: solid 1px #eaeaea;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.main {
+    margin-top: 25px;
+    padding-bottom: 200px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 750px;
+}
+
+.main-content {
+    margin-bottom: 100px;
+}
+
+.hero {
+
+    height: 25vh;
+    min-height: 275px;
+    max-width: 750px;
+
+    /*background-image: url(../public/mc.png); 
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.35);
+    background-color: rgb(44, 44, 44); */
+}
+
+.hero-content {
+    position: relative;
+    top: 25%;   
+}
+
+.hero p {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.list-group-item {
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 15px;
+}
+
+.list-group-item svg {
+    float: right;
+}
+
+.list-group-item:hover {
+    filter: saturate(0.5);
+}
+
+.navbar-main button {
+    padding-bottom: 8px;
+}
