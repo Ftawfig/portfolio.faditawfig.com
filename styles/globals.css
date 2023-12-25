@@ -6,7 +6,7 @@
 }
 
 .main {
-    margin-top: 25px;
+    margin-top: 0px;
     padding-bottom: 200px;
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -30,7 +30,7 @@
 
 .hero-content {
     position: relative;
-    top: 25%;   
+    top: 30%;   
 }
 
 .hero p {

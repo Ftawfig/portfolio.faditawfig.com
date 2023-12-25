@@ -6,7 +6,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function Page() {
     return (
-        <Layout >
+        <>
             <Container className="hero">
                 <div className="hero-content">
                     <h1>Fadi Tawfig's Portfolio</h1>
@@ -21,6 +21,6 @@ export default function Page() {
                 <Link href="https://faditawfig.com"><ListGroup.Item>Consulting <IoIosArrowForward /></ListGroup.Item></Link>
                 </ListGroup>
             </Container>
-        </Layout>
+        </>
     )
 }

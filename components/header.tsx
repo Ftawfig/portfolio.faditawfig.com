@@ -2,21 +2,40 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
+import { Container } from 'react-bootstrap';
 import React, { use } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Header() {
-    const [theme, setTheme] = useState("dark");
-
-    const router = useRouter();
+    const [theme, setTheme] = useState("light");
 
     const handleClick = () => { 
         toggleTheme(theme, setTheme);
-        document.documentElement.setAttribute('data-bs-theme', theme)
     }
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-bs-theme', theme);
+    }, [theme]);
+
+    useEffect(() => {
+        var curTheme = localStorage.getItem('theme');
+
+        // check if theme is set in local storage
+        if (curTheme) {
+            setTheme(curTheme);
+        }
+        // detect system theme
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+        } 
+        else {    
+            setTheme('light');
+        }
+
+        console.log(theme);
+    }, []);
 
     return (
         <>
@@ -27,21 +46,21 @@ export default function Header() {
             <header >
                 <Navbar expand="md"  className="navbar-main">
                     <Container>
-                        <Navbar.Brand href="#home">portfolio.faditawfig.com</Navbar.Brand>
+                        <Link className="navbar-brand" href="/">portfolio.faditawfig.com</Link>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse>
                             <Nav className="me-auto">
-                                <Nav.Link href="/projects">Projects</Nav.Link>
-                                <Nav.Link href="/resume">Resume</Nav.Link>
-                                <Nav.Link href="https://faditawfig.com">Consulting</Nav.Link>
-                                <Nav.Link href="/contact">Contact</Nav.Link>
+                                <Link className="nav-link" href="/projects">Projects</Link>
+                                <Link className="nav-link" href="/resume">Resume</Link>
+                                <Link className="nav-link" href="https://faditawfig.com">Consulting</Link>
+                                <Link className="nav-link" href="/contact">Contact</Link>
                             </Nav>
                         </Navbar.Collapse>
                         <Button 
                             onClick={ handleClick }
-                            variant={"outline" + (theme === 'dark' ? '-dark' : '-light')}
+                            variant={"outline" + (theme === 'dark' ? '-light' : '-dark')}
                         >
-                            <MdDarkMode/>
+                            { theme === 'dark' ?  <MdDarkMode/> : <MdOutlineDarkMode/>}
                         </Button>
                     </Container>
                 </Navbar>
@@ -54,8 +73,6 @@ function toggleTheme(theme, setTheme) {
     console.log(theme);
 
     var curTheme = localStorage.getItem('theme');
-
-    console.log(curTheme);
     
     if (curTheme === 'light') {
         localStorage.setItem('theme', 'dark');
@@ -63,13 +80,5 @@ function toggleTheme(theme, setTheme) {
     } else {
         localStorage.setItem('theme', 'light');
         setTheme('light');
-    }}
-
-function getDefaultTheme() {
-    // detect system theme
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    } else {    
-        return 'light';
     }
 }

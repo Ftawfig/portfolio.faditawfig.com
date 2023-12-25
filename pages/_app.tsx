@@ -5,7 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'react-bootstrap';
+import Layout from '../components/layout';
 
 export default function App({ Component, pageProps }: AppProps) {
-        return <Component {...pageProps} />
+        return (<Layout>
+                        <Component {...pageProps} />
+                </Layout>);
 }
