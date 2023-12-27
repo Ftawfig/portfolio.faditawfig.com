@@ -44,8 +44,8 @@ export default function Header() {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <header >
-                <Navbar expand="md"  className="navbar-main">
-                    <Container>
+                <Navbar expand="md" className="navbar-main">
+                    <Container className="nav-container">
                         <Link className="navbar-brand" href="/">portfolio.faditawfig.com</Link>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse>

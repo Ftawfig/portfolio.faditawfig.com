@@ -1,8 +1,12 @@
 .navbar-main {
     /*box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);*/
     border-bottom: solid 1px #eaeaea;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 40px;
+    padding-bottom: 12px;
+}
+
+.nav-container {
+    max-width: 1000px;
 }
 
 .main {
@@ -18,7 +22,6 @@
 }
 
 .hero {
-
     height: 25vh;
     min-height: 275px;
     max-width: 750px;
@@ -39,19 +42,57 @@
 }
 
 .list-group-item {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 300;
     padding: 15px;
 }
 
 .list-group-item svg {
     float: right;
+    margin-top: 6px;
 }
 
 .list-group-item:hover {
-    filter: saturate(0.5);
+    /* apply a dark transparent filter */
+    background-color: rgba(0, 0, 0, 0.1);
+
 }
 
 .navbar-main button {
     padding-bottom: 8px;
+}
+
+.project-button {
+    border: 0px !important;
+    padding: 0px !important;
+}
+
+.project-card {
+    text-align: left;
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.project-category {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+.project-description {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.project-card .col-1, .project-card .col-2  {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0px;
 }
