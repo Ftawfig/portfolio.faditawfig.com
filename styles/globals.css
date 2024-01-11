@@ -77,10 +77,12 @@
 }
 
 .project-category {
+    display: inline;
     margin-top: 10px;
     font-size: 1.1rem;
     font-weight: 300;
     text-decoration: underline;
+    padding-right: 15px;
 }
 
 .project-description {
@@ -95,4 +97,8 @@
     justify-content: center;
     height: 100%;
     padding: 0px;
+}
+
+.tags {
+    margin-bottom: 25px;
 }
