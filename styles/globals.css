@@ -9,6 +9,12 @@
     max-width: 1000px;
 }
 
+.footer {
+    border-top: solid 1px #eaeaea;
+    text-align: center;
+    background-color: rgba(56, 56, 56, 0.75);
+}
+
 .main {
     margin-top: 0px;
     padding-bottom: 200px;
