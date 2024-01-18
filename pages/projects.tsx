@@ -76,6 +76,8 @@ export default function Projects() {
         </Project>}
     ]);
 
+    // if the tag to be selected is the same as the currently selected tag, set the selected tag to null
+    // otherwise, set the selected tag to the newly selected tag
     const selectTag = (tag) => {
         if (selectedTag === tag) {
             setSelectedTag(null);
@@ -96,15 +98,19 @@ export default function Projects() {
                 <Container className="tags">
                     <h5>Filter by category: </h5>
                     {
+                        // display the list of available tags
+                        // TODO - add a class to highlight the currently selected tag
                         tags.map((tag, i) => {
-                            return <> <a onClick={() => selectTag(tag)}><h4 className="project-category">{tag}</h4></a> </>;
+                            return <> <a className={ selectedTag === tag ? 'tag selected' : 'tag unSelected' } onClick={() => selectTag(tag)}><h4 className="project-category">{tag}</h4></a> </>;
                         })
                     }
                 </Container>
+                {/*
                 <Container className="tags">
                     <h5>Selected tag: </h5>
                         <h4 className="project-category">{selectedTag}</h4>
                 </Container>
+                */}
                 <ListGroup>
                     {
                         // filter the project list: only return each project if the selected tag is null or the selected tag matches the projects tag

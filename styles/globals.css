@@ -82,7 +82,7 @@
     font-size: 1.1rem;
     font-weight: 300;
     text-decoration: underline;
-    padding-right: 15px;
+    margin: 15px;
 }
 
 .project-description {
@@ -101,4 +101,18 @@
 
 .tags {
     margin-bottom: 25px;
+}
+
+.tag {
+    display: inline-block;
+    text-align: center;
+    padding: 4px;
+}
+
+.tag:hover {
+    cursor:pointer;
+}
+
+.selected {
+    background-color: rgba(126, 126, 126, 0.35);
 }
