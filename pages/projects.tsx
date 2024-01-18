@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
+import Hero from '../components/hero';
 
-function Project({ props, children }) {
+
+
+export function Project({ props, children }) {
     const [expanded, setExpanded] = useState(false);
 
     const handleClick = () => {
@@ -88,12 +91,9 @@ export default function Projects() {
 
     return (
         <>
-            <Container className="hero">
-                <div className="hero-content">
-                    <h1>Projects</h1>
-                    <p>Click on a project for more details.</p>
-                </div>
-            </Container>
+            <Hero props={{title: "Projects"}}>
+                Click on a project for more details.
+            </Hero>
             <Container className="main">
                 <Container className="tags">
                     <h5>Filter by category: </h5>
@@ -105,12 +105,14 @@ export default function Projects() {
                         })
                     }
                 </Container>
-                {/*
+
+                {/* show selected tag for testing 
                 <Container className="tags">
                     <h5>Selected tag: </h5>
                         <h4 className="project-category">{selectedTag}</h4>
                 </Container>
                 */}
+                
                 <ListGroup>
                     {
                         // filter the project list: only return each project if the selected tag is null or the selected tag matches the projects tag
