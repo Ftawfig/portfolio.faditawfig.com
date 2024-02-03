@@ -15,7 +15,7 @@ export default function Resume() {
             </Hero>
             <Container className="main">
                 <ListGroup>
-                    <Project props={{title: "Manager, Digital Marketing Analytics", category: "TD Bank"}}>
+                    <Project props={{title: "Manager, Digital Marketing Analytics", category: "TD Bank", date: "Jan 2021 - Present"}}>
                         <ul>
                             <li>Lead 3 senior analysts as part of the digital marketing analytics team.</li>
                             <li>Responsible for building and maintaining core datasets for reporting on Digital marketing performance, which emable actionable insights for performance marketers as well as key executive reports.</li>

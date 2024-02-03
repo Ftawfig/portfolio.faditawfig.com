@@ -6,8 +6,6 @@ import { Row, Col } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import Hero from '../components/hero';
 
-
-
 export function Project({ props, children }) {
     const [expanded, setExpanded] = useState(false);
 
@@ -21,11 +19,18 @@ export function Project({ props, children }) {
                 <Row>
                     <Col xs={10} sm={11}>
                         <h3 className="project-title">{props.title}</h3>
-                        <h4 className="project-category">{props.category}</h4>
+                        <Row>
+                            <Col xs={6}>
+                                <h4 className="project-category">{props.category}</h4>
+                            </Col>
+                            <Col xs={6}>
+                                {props.date && <h4 className="project-date">{props.date}</h4>}
+                            </Col>
+                        </Row>
                         { expanded && <p className="project-description">{children}</p> }
                     </Col>
                     <Col xs={2} sm={1}>
-                         {expanded ? <IoIosArrowDown /> : <IoIosArrowForward />  }
+                         { expanded ? <IoIosArrowDown /> : <IoIosArrowForward />  }
                     </Col>
                 </Row>
             </ListGroup.Item>
@@ -112,7 +117,7 @@ export default function Projects() {
                         <h4 className="project-category">{selectedTag}</h4>
                 </Container>
                 */}
-                
+
                 <ListGroup>
                     {
                         // filter the project list: only return each project if the selected tag is null or the selected tag matches the projects tag
