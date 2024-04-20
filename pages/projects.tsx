@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Row, Col } from 'react-bootstrap';
-import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import Hero from '../components/hero';
 import Project from '../components/project';
 
 export default function Projects() {
-    // Tags used for filtering the project list
+    // Tags used for filtering the project list 
     const [tags, setTags] = useState(["Web", "Data Engineering", "Game-dev"]);
     
     // The currently selected tag. When set to null all tags will be displayed. 
@@ -17,7 +16,7 @@ export default function Projects() {
     // List of project components to display: each project has a "cat" used for filtering 
     const [projects, setProjects] = useState([
         {cat : "Web", prj : 
-            <Project props={{title: "Minecraft server management app", category: "Web"}}>
+            <Project props={{id: "mcserver", title: "Minecraft server management app", category: "Web"}}>
                 Hosted on Google Compute Engine.
             </Project>
         }
@@ -26,22 +25,22 @@ export default function Projects() {
                 A tic-tac-toe game built with React.
             </Project>}
         ,{cat : "Data Engineering", prj : 
-            <Project props={{title: "Google Search Console / BigQuery ETL", category: "Data Engineering"}}>
+            <Project props={{id: "gcs_bq", title: "Google Search Console / BigQuery ETL", category: "Data Engineering"}}>
                 ETL pipeline to load Google Search Console data into BigQuery.
             </Project>
         }
         ,{cat : "Game-dev", prj : 
-            <Project props={{title: "Unity game-dev", category: "Game-dev"}}>
+            <Project props={{id: "unity", title: "Unity game-dev", category: "Game-dev"}}>
                 A 3D game built with Unity.
             </Project>
         }
         ,{cat : "Web", prj : 
-            <Project props={{title: "Consulting website", category: "Web"}}>
+            <Project props={{id: "website", title: "Consulting website", category: "Web"}}>
                 A consulting website built with WordPress. 
                 <br/><br/>Link: <Link href="https://faditawfig.com">faditawfig.com</Link>
             </Project>
         }
-        ,{cat: "Web", prj: <Project props={{title: "this.portfolio", category: "Web"}}>
+        ,{cat: "Web", prj: <Project props={{id: "portfolio", title: "this.portfolio", category: "Web"}}>
             Portfolio website to highlight my personal projects and resume. Built with React / Next.js. Hosted using Google Cloud Run. 
 
             <h5>Features:</h5>

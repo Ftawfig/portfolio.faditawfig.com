@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import Hero from '../components/hero';
 import Project from '../components/project';
 
 export default function Resume() {
+    const searchParams = useSearchParams();
+
+    const selectedId = searchParams.get('id');
+
     return (
         <>
             <Hero props={{title : "Resume"}}>
@@ -15,7 +20,7 @@ export default function Resume() {
             <Container className="main">
                 <h2 className="subheader">Work experience</h2>
                 <ListGroup>
-                    <Project props={{title: "Manager, Digital Marketing Analytics", category: "TD Bank", date: "Mar 2022 - Present"}}>
+                    <Project props={{entryId: "td-1", title: "Manager, Digital Marketing Analytics", category: "TD Bank", date: "Mar 2022 - Present"}}>
                         <ul>
                             <li>Lead 3 senior analysts as part of the digital marketing analytics team.</li>
                             <li>Responsible for building and maintaining core datasets for reporting on Digital marketing performance, which emable actionable insights for performance marketers as well as key executive reports.</li>

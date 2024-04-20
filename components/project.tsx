@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
@@ -11,6 +12,14 @@ export default function Project({ props, children }) {
 
     const handleClick = () => {
         setExpanded(!expanded);
+    }
+
+    const router = useRouter();
+    const { id } = router.query;
+    console.log(id);
+
+    if (props.id && id && props.id === id && !expanded) {
+        setExpanded(true);
     }
 
     return (

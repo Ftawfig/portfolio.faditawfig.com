@@ -6,7 +6,7 @@ export default function Layout({ children }) {
     return (
         <Container fluid className="page-content">
             <Header/>
-            <main >
+            <main>
                 {children}
             </main>
             <Footer/>
