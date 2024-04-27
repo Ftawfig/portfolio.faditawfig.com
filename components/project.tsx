@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
-import Hero from '../components/hero';
+import { IoLink } from "react-icons/io5";
 
 export default function Project({ props, children }) {
     const [expanded, setExpanded] = useState(false);
@@ -14,19 +14,30 @@ export default function Project({ props, children }) {
         setExpanded(!expanded);
     }
 
-    const router = useRouter();
-    const { id } = router.query;
-    console.log(id);
+    const copyLink = () => {
+        let hostname = window.location.hostname;
 
-    if (props.id && id && props.id === id && !expanded) {
-        setExpanded(true);
+        navigator.clipboard.writeText(hostname + ":3000/projects?id=" + props.id);
     }
 
+    const router = useRouter();
+
+    // Get the id parameter from the URL
+    const { id } = router.query;
+
+    useEffect(() => {
+        // Expand the project if the id parameter matches the project id
+        if (props.id && id && props.id === id) {
+            setExpanded(true);
+        }
+    }, [id]);
+
     return (
-        <button onClick={ handleClick } className="project-button" >
+
+        <div className="project-button" >
             <ListGroup.Item className="project-card">
                 <Row>
-                    <Col xs={10} sm={11}>
+                    <Col className="project-details" xs={10} sm={11}>
                         <h3 className="project-title">{props.title}</h3>
                         <Row>
                             <Col xs={6}>
@@ -37,12 +48,14 @@ export default function Project({ props, children }) {
                             </Col>
                         </Row>
                         { expanded && <p className="project-description">{children}</p> }
+                        { expanded && <button className="copy-button" title="Copy link to this item" onClick={ copyLink } ><IoLink /></button> }
                     </Col>
-                    <Col xs={2} sm={1}>
-                         { expanded ? <IoIosArrowDown /> : <IoIosArrowForward />  }
+                    <Col xs={2} sm={1} className="expand-button flex-column">
+                        <button title="Expand for details" className="h-100" onClick={ handleClick } >{ expanded ? <IoIosArrowDown /> : <IoIosArrowForward /> }</button>
                     </Col>
                 </Row>
             </ListGroup.Item>
-        </button>
+        </div>
+
     )
 }

@@ -50,18 +50,16 @@
 .list-group-item {
     font-size: 1.1rem;
     font-weight: 300;
-    padding: 15px;
 }
 
-.list-group-item svg {
-    float: right;
-    margin-top: 6px;
+.expand-button {
+    border-left  : 1px solid rgb(73, 80, 87);
+    align-self: stretch !important;
 }
 
 .list-group-item:hover {
     /* apply a dark transparent filter */
     background-color: rgba(0, 0, 0, 0.1);
-
 }
 
 .navbar-main button {
@@ -71,10 +69,16 @@
 .project-button {
     border: 0px !important;
     padding: 0px !important;
+    width: 100%;
 }
 
 .project-card {
     text-align: left;
+    padding: 0px !important;
+}
+
+.project-details {
+    padding: 15px;
 }
 
 .project-title {
@@ -107,8 +111,32 @@
     display: flex;
     align-self: center;
     justify-content: center;
-    height: 100%;
     padding: 0px;
+}
+
+.project-card button {
+    border: 0px;
+    background-color: transparent;
+}
+
+.project-card button:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.copy-button {
+    /* center the button horizontally */
+    margin-left: 50% !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.project-card button svg {
+    /* center the svg vertically */
+    margin-top: 50% !important;
+    margin: 0px !important;
 }
 
 .tags {
@@ -133,4 +161,8 @@
     font-size: 1.5rem;
     font-weight: 400;
     margin: 20px;
+}
+
+div.row {
+    margin: 0px;
 }
