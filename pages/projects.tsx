@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
 import Project from '../components/project';
+import Button from 'react-bootstrap/Button';
 
 export default function Projects() {
     // Tags used for filtering the project list 
@@ -21,7 +22,7 @@ export default function Projects() {
             </Project>
         }
         ,{cat : "Web", prj : 
-            <Project props={{title: "Tic-tac-toe", category: "Web"}}>
+            <Project props={{id: "tictactoe", title: "Tic-tac-toe", category: "Web"}}>
                 A tic-tac-toe game built with React.
             </Project>}
         ,{cat : "Data Engineering", prj : 
@@ -74,7 +75,7 @@ export default function Projects() {
                         // display the list of available tags
                         // TODO - add a class to highlight the currently selected tag
                         tags.map((tag, i) => {
-                            return <> <a className={ selectedTag === tag ? 'tag selected' : 'tag unSelected' } onClick={() => selectTag(tag)}><h4 className="project-category">{tag}</h4></a> </>;
+                            return <> <Button variant="outline-secondary" className={ selectedTag === tag ? 'tag selected' : 'tag unSelected' } onClick={() => selectTag(tag)}>{tag}</Button> </>;
                         })
                     }
                 </Container>

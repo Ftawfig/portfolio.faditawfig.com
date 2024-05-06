@@ -1,25 +1,21 @@
 import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
-import { IoLink } from "react-icons/io5";
+import CopyButton from './copyButton';
 
 export default function Project({ props, children }) {
     const [expanded, setExpanded] = useState(false);
+    const myRef = useRef(null);
 
     const handleClick = () => {
         setExpanded(!expanded);
+
+        myRef.current.scrollIntoView();
     }
-
-    const copyLink = () => {
-        let hostname = window.location.hostname;
-
-        navigator.clipboard.writeText(hostname + ":3000/projects?id=" + props.id);
-    }
-
     const router = useRouter();
 
     // Get the id parameter from the URL
@@ -28,14 +24,16 @@ export default function Project({ props, children }) {
     useEffect(() => {
         // Expand the project if the id parameter matches the project id
         if (props.id && id && props.id === id) {
+            myRef.current.scrollIntoView();
             setExpanded(true);
         }
     }, [id]);
 
+
     return (
 
         <div className="project-button" >
-            <ListGroup.Item className="project-card">
+            <ListGroup.Item ref={myRef} className="project-card">
                 <Row>
                     <Col className="project-details" xs={10} sm={11}>
                         <h3 className="project-title">{props.title}</h3>
@@ -48,7 +46,7 @@ export default function Project({ props, children }) {
                             </Col>
                         </Row>
                         { expanded && <p className="project-description">{children}</p> }
-                        { expanded && <button className="copy-button" title="Copy link to this item" onClick={ copyLink } ><IoLink /></button> }
+                        { expanded && <CopyButton props={{ id : props.id }} /> }
                     </Col>
                     <Col xs={2} sm={1} className="expand-button flex-column">
                         <button title="Expand for details" className="h-100" onClick={ handleClick } >{ expanded ? <IoIosArrowDown /> : <IoIosArrowForward /> }</button>

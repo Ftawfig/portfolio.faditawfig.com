@@ -114,7 +114,7 @@
     padding: 0px;
 }
 
-.project-card button {
+.expand-button button {
     border: 0px;
     background-color: transparent;
 }
@@ -127,10 +127,6 @@
 .copy-button {
     /* center the button horizontally */
     margin-left: 50% !important;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 .project-card button svg {
@@ -144,13 +140,11 @@
 }
 
 .tag {
-    display: inline-block;
-    text-align: center;
-    padding: 4px;
-}
-
-.tag:hover {
-    cursor:pointer;
+    margin-top: 15px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-right: 4px;
+    border-radius: 12px;
 }
 
 .selected {
