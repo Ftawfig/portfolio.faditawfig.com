@@ -27,7 +27,7 @@ export default function Projects() {
             </Project>}
         ,{cat : "Data Engineering", prj : 
             <Project props={{id: "gcs_bq", title: "Google Search Console / BigQuery ETL", category: "Data Engineering"}}>
-                ETL pipeline to load Google Search Console data into BigQuery.
+                <p>ETL pipeline to load Google Search Console data into BigQuery.</p>
             </Project>
         }
         ,{cat : "Game-dev", prj : 
@@ -37,19 +37,21 @@ export default function Projects() {
         }
         ,{cat : "Web", prj : 
             <Project props={{id: "website", title: "Consulting website", category: "Web"}}>
-                A consulting website built with WordPress. 
-                <br/><br/>Link: <Link href="https://faditawfig.com">faditawfig.com</Link>
+                <p>WordPress website to highlight consulting/freelance services. Hosted on Google Compute Engine.</p>
+
+                <br/>Link: <Link href="https://faditawfig.com">faditawfig.com</Link>
             </Project>
         }
         ,{cat: "Web", prj: <Project props={{id: "portfolio", title: "this.portfolio", category: "Web"}}>
-            Portfolio website to highlight my personal projects and resume. Built with React / Next.js. Hosted using Google Cloud Run. 
-
+            <p>Portfolio website to highlight my personal projects and resume. Built with React / Next.js. Hosted using Google Cloud Run.</p> 
+            
             <h5>Features:</h5>
             <ul>
                 <li>Global dark-mode toggle with system-default detection</li>
-                <li>FIlterable projects and resume pages</li>
+                <li>Filterable projects and resume pages</li>
+                <li>Copy a shortcut link to specific project/resume items</li>
             </ul>
-            <br/><br/>Link: <Link href="/">portfolio.faditawfig.com</Link>
+            <br/>Link: <Link href="/">portfolio.faditawfig.com</Link>
         </Project>}
     ]);
 
