@@ -44,7 +44,7 @@ export default function Projects() {
         }
         ,{cat: "Web", prj: <Project props={{id: "portfolio", title: "this.portfolio", category: "Web"}}>
             <p>Portfolio website to highlight my personal projects and resume. Built with React / Next.js. Hosted using Google Cloud Run.</p> 
-            
+        
             <h5>Features:</h5>
             <ul>
                 <li>Global dark-mode toggle with system-default detection</li>

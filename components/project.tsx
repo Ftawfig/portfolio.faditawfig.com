@@ -1,9 +1,7 @@
-import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
-import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, ListGroup } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import CopyButton from './copyButton';
 
