@@ -4,10 +4,13 @@ import { useEffect, useState, useRef } from 'react';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import CopyButton from './copyButton';
+import { useAutoAnimate } from '@formkit/auto-animate/react'
+import Head from 'next/head';
 
 export default function Project({ props, children }) {
     const [expanded, setExpanded] = useState(false);
     const myRef = useRef(null);
+    const [parent, enableAnimations] = useAutoAnimate();
 
     const handleClick = () => {
         setExpanded(!expanded);
@@ -27,13 +30,15 @@ export default function Project({ props, children }) {
         }
     }, [id]);
 
-
     return (
-
         <div className="project-button" >
+            <Head>
+                <title key="title">Fadi Tawfig's Online Portfolio | portfolio.fadtaw</title>
+                <meta name="description" content="Fadi Tawfig's Portfolio" />
+            </Head>
             <ListGroup.Item ref={myRef} className="project-card">
-                <Row>
-                    <Col className="project-details" xs={10} sm={11}>
+                <Row >
+                    <Col ref={parent} className="project-details" xs={10} sm={11}>
                         <h3 className="project-title">{props.title}</h3>
                         <Row>
                             <Col xs={6}>
@@ -43,11 +48,11 @@ export default function Project({ props, children }) {
                                 {props.date && <h4 className="project-date">{props.date}</h4>}
                             </Col>
                         </Row>
-                        { expanded && <p className="project-description">{children}</p> }
-                        { expanded && <CopyButton props={{ id : props.id }} /> }
+                        {expanded && <p className="project-description">{children}</p>}
+                        {expanded && <CopyButton props={{ id: props.id }} />}
                     </Col>
                     <Col xs={2} sm={1} className="expand-button flex-column">
-                        <button title="Expand for details" className="h-100" onClick={ handleClick } >{ expanded ? <IoIosArrowDown /> : <IoIosArrowForward /> }</button>
+                        <button title="Expand for details" className="h-100" onClick={handleClick} >{expanded ? <IoIosArrowDown /> : <IoIosArrowForward />}</button>
                     </Col>
                 </Row>
             </ListGroup.Item>

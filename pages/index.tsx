@@ -2,14 +2,19 @@ import { Container, ListGroup } from 'react-bootstrap';
 import React from 'react';
 import Link from 'next/link';
 import { IoIosArrowForward } from "react-icons/io";
+import Head from 'next/head';
 
 export default function Page() {
     return (
         <>
+            <Head>
+                <title key="title">Fadi Tawfig's Portfolio & Online Resume | portfolio.fadtaw</title>
+                <meta name="description" content="Fadi Tawfig's Portfolio" />
+            </Head>
             <Container className="hero">
                 <div className="hero-content">
-                    <h1>Fadi Tawfig's Portfolio</h1>
-                    <p>Toronto-based analytics engineer & web dev & hobbyist game-dev.</p>
+                    <h1>portfolio.faditawfig.com</h1>
+                    <p>Toronto-based analytics engineer. Web dev. Hobbyist game-dev.</p>
                 </div>
             </Container>
             <Container className="main">

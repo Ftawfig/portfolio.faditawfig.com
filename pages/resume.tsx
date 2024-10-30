@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
 import Project from '../components/project';
+import Head from 'next/head';
 
 export default function Resume() {
     const searchParams = useSearchParams();
@@ -12,6 +13,10 @@ export default function Resume() {
 
     return (
         <>
+            <Head>
+                <title key="title">Fadi Tawfig's Online Resume | portfolio.fadtaw</title>
+                <meta name="description" content="Fadi Tawfig's online Resume" />
+            </Head>
             <Hero props={{ title: "Resume" }}>
                 Click on an item to expand details.
             </Hero>
