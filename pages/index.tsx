@@ -14,7 +14,7 @@ export default function Page() {
             <Container className="hero">
                 <div className="hero-content">
                     <h1>portfolio.faditawfig.com</h1>
-                    <p>Toronto-based analytics engineer. Web dev. Hobbyist game-dev.</p>
+                    <p>Online resume and portfolio for Fadi Tawfig: Toronto-based analytics engineer. Web dev. Hobbyist game-dev.</p>
                 </div>
             </Container>
             <Container className="main">

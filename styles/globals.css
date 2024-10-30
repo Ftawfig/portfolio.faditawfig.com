@@ -10,7 +10,8 @@
 }
 
 .footer {
-    border-top: solid 1px #eaeaea;
+    color: rgb(222, 226, 230);
+    border-top: solid 1px rgb(222, 226, 230);
     text-align: center;
     background-color: rgba(56, 56, 56, 0.75);
 }
@@ -29,7 +30,6 @@
 
 .alert-space {
     margin-top: 3rem;
-    margin-bottom: 1rem;
     max-width: 750px;
 }
 

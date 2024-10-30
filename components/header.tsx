@@ -5,7 +5,6 @@ import { MdDarkMode, MdOutlineDarkMode } from "react-icons/md";
 import { Container } from 'react-bootstrap';
 import React, { use } from 'react';
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 
 export default function Header() {
@@ -39,10 +38,6 @@ export default function Header() {
 
     return (
         <>
-            <Head>
-                <title>portfolio.faditawfig.com</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
             <header >
                 <Navbar expand="md" className="navbar-main">
                     <Container className="nav-container">

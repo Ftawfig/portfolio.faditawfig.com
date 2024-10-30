@@ -16,6 +16,12 @@ export default function InfoAlert() {
                 variant="info"
                 className="text-center"
                 dismissible
+                style={{ 
+                    padding: 0,
+                    paddingTop: 12,
+                    paddingBottom: 12,
+                    borderRadius: 2,
+                 }}
             >
                 Check out my latest project: <Alert.Link href="https://bluegill.world" target="_blank">bluegill.world</Alert.Link>!
             </Alert>
