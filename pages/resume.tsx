@@ -8,13 +8,12 @@ import Head from 'next/head';
 
 export default function Resume() {
     const searchParams = useSearchParams();
-
     const selectedId = searchParams.get('id');
 
     return (
         <>
             <Head>
-                <title key="title">Fadi Tawfig's Online Resume | portfolio.fadtaw</title>
+                <title key="title">Fadi Tawfig's Online Resume | portfolio.fadtawfig.com</title>
                 <meta name="description" content="Fadi Tawfig's online Resume" />
             </Head>
             <Hero props={{ title: "Resume" }}>
