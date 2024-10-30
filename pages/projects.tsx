@@ -6,8 +6,11 @@ import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
 import Project from '../components/project';
 import Button from 'react-bootstrap/Button';
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function Projects() {
+    const [parent, enableAnimations] = useAutoAnimate();
+
     // Tags used for filtering the project list 
     const [tags, setTags] = useState(["Web", "Data Engineering", "Game-dev"]);
     
@@ -81,15 +84,7 @@ export default function Projects() {
                         })
                     }
                 </Container>
-
-                {/* show selected tag for testing 
-                <Container className="tags">
-                    <h5>Selected tag: </h5>
-                        <h4 className="project-category">{selectedTag}</h4>
-                </Container>
-                */}
-
-                <ListGroup>
+                <ListGroup ref={parent}>
                     {
                         // filter the project list: only return each project if the selected tag is null or the selected tag matches the projects tag
                         projects.map((project, i) => { 

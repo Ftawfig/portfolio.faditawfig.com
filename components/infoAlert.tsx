@@ -5,7 +5,7 @@ import Alert from 'react-bootstrap/Alert';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function InfoAlert() {
-    const [parent, enableAnimations] = useAutoAnimate()
+    const [parent, enableAnimations] = useAutoAnimate();
 
     return (
         <Container
