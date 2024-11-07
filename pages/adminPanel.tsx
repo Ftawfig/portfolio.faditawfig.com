@@ -11,10 +11,37 @@ import dynamic from "next/dynamic";
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor"),
     { ssr: false }
-  );
+);
 
 export default function AdminPanel() {
     const [value, setValue] = React.useState("**Hello world!!!**");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const userId = 1; 
+        const entryText = value;
+        const entryType = e.target.entryType.value;
+        const entryKey = e.target.entryKey.value;
+        console.log(entryType, entryText);
+
+        try {
+            const res = await fetch('/api/newEntry', {
+                body: JSON.stringify({ userId, entryKey, entryType, entryText }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST'
+            })
+
+            if (res.status === 200) {
+                console.log('New entry added successfully');
+            }
+        } catch (error) {
+            console.error('An unexpected error happened:', error
+            )
+        }
+
+    }
 
     return (
         <>
@@ -26,7 +53,11 @@ export default function AdminPanel() {
                 <h2>Resume Entries</h2>
                 <Container>
                     <h2>Create new entry</h2>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="entryKey">
+                            <Form.Label>Entry Key</Form.Label>
+                            <Form.Control type="text" aria-label="entry_key"/>
+                        </Form.Group>
                         <Form.Group controlId="entryType">
                             <Form.Select aria-label="project_type">
                                 <option value="project">Project</option>
