@@ -8,15 +8,16 @@ type ResponseData = {
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         // Process a POST request
-        const { userId, entryKey, entryType, entryText } = req.body;
+        const { userId, entryTitle, entryKey, entryType, entryText } = req.body;
         console.log(userId);
+        console.log(entryTitle);
         console.log(entryKey);
         console.log(entryType);
         console.log(entryText);
 
         try {
             if (entryType === 'project') {
-                dbService.insertProject(userId, entryKey, entryText);
+                dbService.insertProject(userId, entryTitle, entryKey, entryText);
             }
             res.status(200).json({ message: 'Entry submitted successfully' });
 

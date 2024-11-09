@@ -19,6 +19,7 @@ export default function AdminPanel() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userId = 1; 
+        const entryTitle = e.target.entryTitle.value;
         const entryText = value;
         const entryType = e.target.entryType.value;
         const entryKey = e.target.entryKey.value;
@@ -26,7 +27,7 @@ export default function AdminPanel() {
 
         try {
             const res = await fetch('/api/newEntry', {
-                body: JSON.stringify({ userId, entryKey, entryType, entryText }),
+                body: JSON.stringify({ userId, entryTitle, entryKey, entryType, entryText }),
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -54,6 +55,10 @@ export default function AdminPanel() {
                 <Container>
                     <h2>Create new entry</h2>
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="entryTitle">
+                            <Form.Label>Entry Title</Form.Label>
+                            <Form.Control type="text" aria-label="entry_title"/>
+                        </Form.Group>
                         <Form.Group controlId="entryKey">
                             <Form.Label>Entry Key</Form.Label>
                             <Form.Control type="text" aria-label="entry_key"/>

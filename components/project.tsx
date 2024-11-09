@@ -4,7 +4,10 @@ import { useEffect, useState, useRef } from 'react';
 import { Row, Col, ListGroup } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import CopyButton from './copyButton';
-import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import dynamic from 'next/dynamic';
+
+const MarkdownPreview = dynamic(() => import('@uiw/react-markdown-preview'), { ssr: false });
 
 type EntryType = "project" | "resume" | "education";
 
@@ -53,7 +56,7 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                 {props.date && <h4 className="project-date">{props.date}</h4>}
                             </Col>
                         </Row>
-                        {expanded && <p className="project-description">{children}</p>}
+                        {expanded && <MarkdownPreview source={ children as string } />}
                         {expanded && <CopyButton props={{ key: props.entryKey }} />}
                     </Col>
                     <Col xs={2} sm={1} className="expand-button flex-column">

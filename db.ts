@@ -18,10 +18,10 @@ export const dbService = {
     getProjects
 }
 
-function insertProject(userId: number, entryKey: string, entryDescription: string): void {
+function insertProject(userId: number, entryTitle : string, entryKey: string, entryDescription: string): void {
     const query = {
-        text: 'INSERT INTO entries(user_id, entry_type, entry_key, entry_description) VALUES($1, $2, $3, $4)',
-        values: [userId, "project", entryKey, entryDescription],
+        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description) VALUES($1, $2, $3, $4, $5)',
+        values: [userId, entryTitle, "project", entryKey, entryDescription],
     }
 
     getQueryResults(query);
