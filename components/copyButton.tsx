@@ -12,14 +12,14 @@ export default function CopyButton({ props }) {
         let hostname = window.location.hostname;
 
         // get slug from the URL
-        const slug = window.location.pathname +  "?id=";
+        const slug = window.location.pathname +  "?key=";
 
         // if dev attach port number
         if (hostname === "localhost") {
             hostname += ":3000";
         }
 
-        navigator.clipboard.writeText(hostname + slug + props.id);
+        navigator.clipboard.writeText(hostname + slug + props.key);
 
         setCopied(true);
     }
