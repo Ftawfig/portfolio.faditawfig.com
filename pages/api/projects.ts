@@ -1,15 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { dbService } from '../../db';
-
-type ResponseData = {
-    message: string
-}
+import { Entry } from '../../types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if (req.method === 'GET') {
         try {
-            const projects = await dbService.getProjects();
+            const data = await dbService.getProjects();
+            // shape the data to match the shape of the data in the client
+            const projects : Entry[] = data.map((entry) => {
+                return {
+                    entryKey: entry.entry_key,
+                    entryType: "project",
+                    title: entry.entry_title,
+                    category: entry.entry_category,
+                    description: entry.entry_description,
+                }
+            });
+
             console.log(projects);
+
             res.status(200).json({projects});
         } catch (error) {
             console.error('An unexpected error happened:', error);

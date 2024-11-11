@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
-import { Entry, EntryProps } from '../components/project';
+import { Entry } from '../components/entry';
+import EntryList from '../components/entryList';
 import Button from 'react-bootstrap/Button';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Head from 'next/head';
@@ -12,8 +13,6 @@ import Spinner from 'react-bootstrap/Spinner';
 
 export default function Projects() {
     const [parent] = useAutoAnimate();
-    const [parent2] = useAutoAnimate();
-
 
     //2 Tags used for filtering the project list 
     const [tags, setTags] = useState(["Web", "Data Engineering", "Game-dev"]);
@@ -51,7 +50,7 @@ export default function Projects() {
             <Hero props={{ title: "Projects" }}>
                 Click on a project for more details.
             </Hero>
-            <Container className="main" ref={parent2}>
+            <Container className="main" ref={parent}>
                 {
                     isLoading ? 
                         <Container
@@ -77,28 +76,7 @@ export default function Projects() {
                                 })
                             }
                         </Container>
-                        <ListGroup ref={parent}>
-                            {
-                                // filter the project list: only return each project if the selected tag is null or the selected tag matches the projects tag
-                                projects.map((project) => {
-                                    if (selectedTag === null || selectedTag === project.entry_category) {
-                                        return (
-                                            <Entry
-                                                key={project.entry_key}
-                                                props={{
-                                                    entryType: "project",
-                                                    title: project.entry_title,
-                                                    category: project.entry_category,
-                                                    entryKey: project.entry_key,
-                                                }}
-                                            >
-                                                {project.entry_description}
-                                            </Entry>
-                                        )
-                                    }
-                                })
-                            }
-                        </ListGroup>
+                        <EntryList props={{ entries: projects, selectedTag: selectedTag }} />
                     </>
                 }
 

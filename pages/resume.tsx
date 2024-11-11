@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
-import Project from '../components/project';
+import Project from '../components/entry';
 import Head from 'next/head';
 
 export default function Resume() {
