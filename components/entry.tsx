@@ -17,7 +17,7 @@ export interface EntryProps {
     title: string,
     category: string,
     date?: string,
-    description: string,
+    description: string | React.ReactNode,
 }
 
 export function Entry({ props, children }: { props: EntryProps, children: React.ReactNode }) {

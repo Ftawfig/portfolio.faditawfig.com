@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, ListGroup } from 'react-bootstrap';
-import { Entry, EntryProps } from './entry';
+import { Entry } from './entry';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Entry as EntryType } from '../types';
 
@@ -11,6 +11,7 @@ interface EntryListProps {
 
 export default function EntryList({ props }: { props: EntryListProps }) {
     const [parent] = useAutoAnimate();
+    console.log("EntryList: ", props.entries);
 
     return (
         <Container>

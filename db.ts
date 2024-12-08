@@ -15,7 +15,12 @@ const pool = new Pool({
 
 export const dbService = {
     insertProject,
-    getProjects
+    insertResumeEntry,
+    insertEducationEntry,
+    getProjects,
+    getResume,
+    getEducation,
+    getAllEntires
 }
 
 function insertProject(userId: number, entryTitle : string, entryKey: string, entryDescription: string): void {
@@ -27,10 +32,54 @@ function insertProject(userId: number, entryTitle : string, entryKey: string, en
     getQueryResults(query);
 }
 
+function insertResumeEntry(userId: number, entryTitle : string, entryKey: string, entryDescription: string, entryStartDate: string, entryEndDate: string): void {
+    const query = {
+        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description, start_date, end_date) VALUES($1, $2, $3, $4, $5, $6, $7)',
+        values: [userId, entryTitle, "resume", entryKey, entryDescription, entryStartDate, entryEndDate],
+    }
+
+    getQueryResults(query);
+}
+
+function insertEducationEntry(userId: number, entryTitle : string, entryKey: string, entryDescription: string, entryStartDate: string, entryEndDate: string): void {
+    const query = {
+        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description, start_date, end_date)) VALUES($1, $2, $3, $4, $5, $6, $7)',
+        values: [userId, entryTitle, "education", entryKey, entryDescription, entryStartDate, entryEndDate],
+    }
+
+    getQueryResults(query);
+}
+
 async function getProjects() {
     const query = {
         text: 'SELECT * FROM entries WHERE entry_type = $1',
         values: ["project"],
+    }
+
+    return await getQueryResults(query);
+}
+
+async function getResume() {
+    const query = {
+        text: 'SELECT * FROM entries WHERE entry_type = $1',
+        values: ["resume"],
+    }
+
+    return await getQueryResults(query);
+}
+
+async function getEducation() {
+    const query = {
+        text: 'SELECT * FROM entries WHERE entry_type = $1',
+        values: ["education"],
+    }
+
+    return await getQueryResults(query);
+}
+
+async function getAllEntires() {
+    const query = {
+        text: 'SELECT * FROM entries',
     }
 
     return await getQueryResults(query);
