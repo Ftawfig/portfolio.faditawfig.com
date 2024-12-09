@@ -15,7 +15,7 @@ const MDEditor = dynamic(
 
 export default function AdminPanel() {
     const [value, setValue] = useState("**Hello world!!!**");
-    const [selectedType, setSelectedType] = useState('project'); 1
+    const [selectedType, setSelectedType] = useState(null); 1
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,6 +48,7 @@ export default function AdminPanel() {
 
         // Reset the form
         e.target.reset();
+        setSelectedType(null);
     }
 
     return (
@@ -90,6 +91,7 @@ export default function AdminPanel() {
                                 <Form.Select aria-label="entryType"
                                     onChange={(e) => setSelectedType(e.target.value)}
                                 >
+                                    <option>Select entry type</option>
                                     <option value="project">Project</option>
                                     <option value="resume">Resume</option>
                                     <option value="education">Education</option>
@@ -105,41 +107,43 @@ export default function AdminPanel() {
                             </Form.Group>
 
                         </div>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                gap: 50,
-                                marginBottom: 25,
-                            }}
-                        >
-                            <Form.Group controlId="entryCategory">
-                                <Form.Label>
-                                    <b>
-                                        {
-                                            selectedType === 'project' ? 'Project Category' :
-                                                selectedType === 'resume' ? 'Employer' :
-                                                    'School'
-                                        }
-                                    </b>
-                                </Form.Label>
-                                <Form.Control type="text" aria-label="entryCayegory" />
-                            </Form.Group>
-                            {
-                                (selectedType === 'resume' || selectedType === 'education') &&
-                                <>
-                                    <Form.Group controlId="entryStartDate">
-                                        <Form.Label><b>Start Date</b></Form.Label>
-                                        <Form.Control type="text" aria-label="entryStartDate" />
-                                    </Form.Group>
-                                    <Form.Group controlId="entryEndDate">
-                                        <Form.Label><b>End Date</b></Form.Label>
-                                        <Form.Control type="text" aria-label="entryEndDate" />
-                                    </Form.Group>
-                                </>
-                            }
-                        </div>
+                        {selectedType &&
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    gap: 50,
+                                    marginBottom: 25,
+                                }}
+                            >
+                                <Form.Group controlId="entryCategory">
+                                    <Form.Label>
+                                        <b>
+                                            {
+                                                selectedType === 'project' ? 'Project Category' :
+                                                    selectedType === 'resume' ? 'Employer' :
+                                                        'School'
+                                            }
+                                        </b>
+                                    </Form.Label>
+                                    <Form.Control type="text" aria-label="entryCayegory" />
+                                </Form.Group>
+                                {
+                                    (selectedType === 'resume' || selectedType === 'education') &&
+                                    <>
+                                        <Form.Group controlId="entryStartDate">
+                                            <Form.Label><b>Start Date</b></Form.Label>
+                                            <Form.Control type="text" aria-label="entryStartDate" />
+                                        </Form.Group>
+                                        <Form.Group controlId="entryEndDate">
+                                            <Form.Label><b>End Date</b></Form.Label>
+                                            <Form.Control type="text" aria-label="entryEndDate" />
+                                        </Form.Group>
+                                    </>
+                                }
+                            </div>
+                        }
                         <Form.Group controlId="entryText">
                             <Form.Label><b>Entry Text</b></Form.Label>
                             <MDEditor

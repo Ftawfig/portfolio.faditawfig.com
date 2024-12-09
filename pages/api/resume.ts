@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const resumeEntries : Entry[] = data.map((entry) => {
                 return {
                     entryKey: entry.entry_key,
-                    entryType: "resume",
+                    entryType: entry.entry_type,
                     title: entry.entry_title,
                     category: entry.entry_category,
                     description: entry.entry_description,

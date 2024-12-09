@@ -57,8 +57,9 @@ export default function Resume() {
                         : error ? <p>Error: {String(error)}</p> :
                         <>
                             <h2 className="subheader">Work experience</h2>
-                            <EntryList props={{ entries: resumeEntries, selectedTag: null }} />
+                            <EntryList props={{ entries: resumeEntries.filter(e => e.entryType == 'resume'), selectedTag: null }} />
                             <h2 className="subheader">Education</h2>
+                            <EntryList props={{ entries: resumeEntries.filter(e => e.entryType == 'education'), selectedTag: null }} />
                         </>
                 }
 

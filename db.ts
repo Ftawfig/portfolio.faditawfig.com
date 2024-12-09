@@ -65,7 +65,7 @@ function insertEducationEntry(
     entryEndDate: string
 ): void {
     const query = {
-        text: 'INSERT INTO entries(user_id, entry_title, entry_category, entry_type, entry_key, entry_description, start_date, end_date)) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+        text: 'INSERT INTO entries(user_id, entry_title, entry_category, entry_type, entry_key, entry_description, start_date, end_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
         values: [userId, entryTitle, entryCategory, "education", entryKey, entryDescription, entryStartDate, entryEndDate],
     }
 
@@ -83,8 +83,8 @@ async function getProjects() {
 
 async function getResume() {
     const query = {
-        text: 'SELECT * FROM entries WHERE entry_type = $1',
-        values: ["resume"],
+        text: 'SELECT * FROM entries WHERE entry_type IN ($1, $2)',
+        values: ["resume", "education"]
     }
 
     return await getQueryResults(query);
