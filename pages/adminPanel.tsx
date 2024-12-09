@@ -21,16 +21,17 @@ export default function AdminPanel() {
         e.preventDefault();
         const userId = 1;
         const entryTitle = e.target.entryTitle.value;
+        const entryCategory = e.target.entryCategory.value;
         const entryText = value;
         const entryType = e.target.entryType.value;
         const entryKey = e.target.entryKey.value;
-        const entryStartDate = e.target.entryDate?.value;
-        const entryEndDate = e.target.entryDate?.value;
+        const entryStartDate = e.target.entryStartDate?.value;
+        const entryEndDate = e.target.entryEndDate?.value;
         console.log(entryType, entryText);
 
         try {
             const res = await fetch('/api/newEntry', {
-                body: JSON.stringify({ userId, entryTitle, entryKey, entryType, entryText, entryStartDate, entryEndDate }),
+                body: JSON.stringify({ userId, entryTitle, entryCategory, entryKey, entryType, entryText, entryStartDate, entryEndDate }),
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -45,6 +46,8 @@ export default function AdminPanel() {
             )
         }
 
+        // Reset the form
+        e.target.reset();
     }
 
     return (
@@ -60,8 +63,9 @@ export default function AdminPanel() {
                     gap: 25,
                 }}
             >
-                <h2>Projects</h2>
-                <h2>Resume Entries</h2>
+                <h2 className="subheader">Projects</h2>
+                <h2 className="subheader">Resume Entries</h2>
+                <h2 className="subheader">Create new entry</h2>
                 <Container
                     style={{
                         display: 'flex',
@@ -70,7 +74,6 @@ export default function AdminPanel() {
                         marginTop: 25,
                     }}
                 >
-                    <h2>Create new entry</h2>
                     <Form onSubmit={handleSubmit}>
                         <div
                             style={{
@@ -126,13 +129,13 @@ export default function AdminPanel() {
                             {
                                 (selectedType === 'resume' || selectedType === 'education') &&
                                 <>
-                                    <Form.Group controlId="entryDate">
+                                    <Form.Group controlId="entryStartDate">
                                         <Form.Label><b>Start Date</b></Form.Label>
-                                        <Form.Control type="text" aria-label="entryDate" />
+                                        <Form.Control type="text" aria-label="entryStartDate" />
                                     </Form.Group>
-                                    <Form.Group controlId="entryDate">
+                                    <Form.Group controlId="entryEndDate">
                                         <Form.Label><b>End Date</b></Form.Label>
-                                        <Form.Control type="text" aria-label="entryDate" />
+                                        <Form.Control type="text" aria-label="entryEndDate" />
                                     </Form.Group>
                                 </>
                             }
@@ -142,11 +145,23 @@ export default function AdminPanel() {
                             <MDEditor
                                 value={value}
                                 onChange={setValue}
+                                height={600}
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit Entry
-                        </Button>
+                        <Container
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                gap: 10,
+                                marginTop: 25,
+                                marginBottom: 25,
+                            }}
+                        >
+                            <Button variant="outline-primary" type="submit" style={{ width: "100%" }}>
+                                Submit Entry
+                            </Button>
+                        </Container>
                     </Form>
                 </Container>
             </Container>

@@ -16,7 +16,8 @@ export interface EntryProps {
     entryType: EntryType,
     title: string,
     category: string,
-    date?: string,
+    entryStartDate?: string,
+    entryEndDate?: string,
     description: string | React.ReactNode,
 }
 
@@ -54,7 +55,7 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                 <h4 className="project-category">{props.category}</h4>
                             </Col>
                             <Col xs={6}>
-                                {props.date && <h4 className="project-date">{props.date}</h4>}
+                                {props.entryStartDate && <h4 className="project-date">{props.entryStartDate + " - " + props.entryEndDate}</h4>}
                             </Col>
                         </Row>
                         {expanded && <MarkdownPreview source={ children as string } />}

@@ -23,28 +23,50 @@ export const dbService = {
     getAllEntires
 }
 
-function insertProject(userId: number, entryTitle : string, entryKey: string, entryDescription: string): void {
+function insertProject(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string, 
+    entryKey: string,
+    entryDescription: string
+): void {
     const query = {
-        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description) VALUES($1, $2, $3, $4, $5)',
-        values: [userId, entryTitle, "project", entryKey, entryDescription],
+        text: 'INSERT INTO entries(user_id, entry_title, entry_category, entry_type, entry_key, entry_description) VALUES($1, $2, $3, $4, $5, $6)',
+        values: [userId, entryTitle, entryCategory, "project", entryKey, entryDescription],
     }
 
     getQueryResults(query);
 }
 
-function insertResumeEntry(userId: number, entryTitle : string, entryKey: string, entryDescription: string, entryStartDate: string, entryEndDate: string): void {
+function insertResumeEntry(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string,
+    entryKey: string,
+    entryDescription: string,
+    entryStartDate: string,
+    entryEndDate: string
+): void {
     const query = {
-        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description, start_date, end_date) VALUES($1, $2, $3, $4, $5, $6, $7)',
-        values: [userId, entryTitle, "resume", entryKey, entryDescription, entryStartDate, entryEndDate],
+        text: 'INSERT INTO entries(user_id, entry_title, entry_category, entry_type, entry_key, entry_description, start_date, end_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+        values: [userId, entryTitle, entryCategory, "resume", entryKey, entryDescription, entryStartDate, entryEndDate],
     }
 
     getQueryResults(query);
 }
 
-function insertEducationEntry(userId: number, entryTitle : string, entryKey: string, entryDescription: string, entryStartDate: string, entryEndDate: string): void {
+function insertEducationEntry(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string,
+    entryKey: string,
+    entryDescription: string,
+    entryStartDate: string,
+    entryEndDate: string
+): void {
     const query = {
-        text: 'INSERT INTO entries(user_id, entry_title, entry_type, entry_key, entry_description, start_date, end_date)) VALUES($1, $2, $3, $4, $5, $6, $7)',
-        values: [userId, entryTitle, "education", entryKey, entryDescription, entryStartDate, entryEndDate],
+        text: 'INSERT INTO entries(user_id, entry_title, entry_category, entry_type, entry_key, entry_description, start_date, end_date)) VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+        values: [userId, entryTitle, entryCategory, "education", entryKey, entryDescription, entryStartDate, entryEndDate],
     }
 
     getQueryResults(query);

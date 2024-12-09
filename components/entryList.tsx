@@ -13,6 +13,10 @@ export default function EntryList({ props }: { props: EntryListProps }) {
     const [parent] = useAutoAnimate();
     console.log("EntryList: ", props.entries);
 
+    if (props.entries.length == 0) {
+        return <p>No entries yet...</p>
+    }
+
     return (
         <Container>
             <ListGroup ref={parent}>

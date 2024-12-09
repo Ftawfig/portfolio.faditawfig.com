@@ -8,9 +8,10 @@ type ResponseData = {
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         // Process a POST request
-        const { userId, entryTitle, entryKey, entryType, entryText, entryStartDate, entryEndDate } = req.body;
+        const { userId, entryTitle, entryCategory, entryKey, entryType, entryText, entryStartDate, entryEndDate } = req.body;
         console.log(userId);
         console.log(entryTitle);
+        console.log(entryCategory);
         console.log(entryKey);
         console.log(entryType);
         console.log(entryText);
@@ -19,13 +20,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
         try {
             if (entryType === 'project') {
-                dbService.insertProject(userId, entryTitle, entryKey, entryText);
+                dbService.insertProject(userId, entryTitle, entryCategory, entryKey, entryText);
             }
             else if (entryType === 'resume') {
-                dbService.insertResumeEntry(userId, entryTitle, entryKey, entryText, entryStartDate, entryEndDate );
+                dbService.insertResumeEntry(userId, entryTitle, entryCategory, entryKey, entryText, entryStartDate, entryEndDate );
             }
             else if (entryType === 'education') {
-                dbService.insertEducationEntry(userId, entryTitle, entryKey, entryText, entryStartDate, entryEndDate );
+                dbService.insertEducationEntry(userId, entryTitle, entryCategory, entryKey, entryText, entryStartDate, entryEndDate );
             }
             res.status(200).json({ message: 'Entry submitted successfully' });
 

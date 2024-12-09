@@ -22,6 +22,12 @@ export default function Resume() {
 
     const resumeEntries = data?.resumeEntries;
 
+    // get year from start date 
+    resumeEntries?.map(entry => {
+        const startDate = entry.entryStartDate;
+        entry.startYear = startDate?.substr(startDate.length - 4);
+    })
+
     console.log(resumeEntries);
 
     return (
@@ -49,7 +55,11 @@ export default function Resume() {
                             <span>Loading...</span>
                         </Container> 
                         : error ? <p>Error: {String(error)}</p> :
-                        <EntryList props={{ entries: resumeEntries, selectedTag: null }} />
+                        <>
+                            <h2 className="subheader">Work experience</h2>
+                            <EntryList props={{ entries: resumeEntries, selectedTag: null }} />
+                            <h2 className="subheader">Education</h2>
+                        </>
                 }
 
             </Container>

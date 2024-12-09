@@ -14,6 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     title: entry.entry_title,
                     category: entry.entry_category,
                     description: entry.entry_description,
+                    entryStartDate: entry.start_date,
+                    entryEndDate: entry.end_date,
                 }
             });
 
