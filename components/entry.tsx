@@ -19,10 +19,12 @@ export interface EntryProps {
     entryStartDate?: string,
     entryEndDate?: string,
     description: string | React.ReactNode,
+    isExpanded?: boolean
 }
 
 export function Entry({ props, children }: { props: EntryProps, children: React.ReactNode }) {
-    const [expanded, setExpanded] = useState(false);
+    console.log(props.isExpanded);
+    const [expanded, setExpanded] = useState(props.isExpanded);
     const myRef = useRef(null);
     const [parent] = useAutoAnimate();
 
@@ -43,6 +45,10 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
             setExpanded(true);
         }
     }, [key]);
+
+    useEffect(() =>{
+        setExpanded(props.isExpanded);
+    }, [props.isExpanded])
 
     return (
         <div className="project-button" key={props.entryKey}>
