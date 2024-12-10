@@ -16,7 +16,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
 
     const [expandAll, setExpandAll] = useState(false);
 
-    if (props.entries.length == 0) {
+    if (props.entries?.length == 0) {
         return <p>No entries yet...</p>
     }
 
@@ -48,7 +48,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
             </Container>
             <Container>
                 <ListGroup ref={parent}>
-                    {props.entries.map((entry) => {
+                    {props.entries?.map((entry) => {
                         entry.isExpanded = expandAll;
                         if (props.selectedTag === null || props.selectedTag === entry.category) {
                             return <Entry key={entry.entryKey} props={entry} >

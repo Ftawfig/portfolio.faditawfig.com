@@ -1,11 +1,8 @@
-import Link from 'next/link';
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Hero from '../components/hero';
 import EntryList from '../components/entryList';
-import Button from 'react-bootstrap/Button';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Head from 'next/head';
 import Spinner from 'react-bootstrap/Spinner';

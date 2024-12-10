@@ -1,13 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
-import { Row, Col, ListGroup } from 'react-bootstrap';
+import { Row, Col, ListGroup, Button } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import CopyButton from './copyButton';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import dynamic from 'next/dynamic';
+import { GoPencil, GoCheck } from "react-icons/go";
 
 const MarkdownPreview = dynamic(() => import('@uiw/react-markdown-preview'), { ssr: false });
+const MarkdownEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
 type EntryType = "project" | "resume" | "education";
 
@@ -20,11 +22,13 @@ export interface EntryProps {
     entryEndDate?: string,
     description: string | React.ReactNode,
     isExpanded?: boolean
+    editMode?: boolean
 }
 
 export function Entry({ props, children }: { props: EntryProps, children: React.ReactNode }) {
-    console.log(props.isExpanded);
+    const [editMode, setEditMode] = useState(false);
     const [expanded, setExpanded] = useState(props.isExpanded);
+    const [editorText, setEditorText] = useState(children as string);
     const myRef = useRef(null);
     const [parent] = useAutoAnimate();
 
@@ -46,16 +50,38 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
         }
     }, [key]);
 
-    useEffect(() =>{
+    useEffect(() => {
         setExpanded(props.isExpanded);
-    }, [props.isExpanded])
+    }, [props.isExpanded]);
+
+    const toggleEditMode = () => {
+        setEditMode(!editMode);
+    };
 
     return (
         <div className="project-button" key={props.entryKey}>
             <ListGroup.Item ref={myRef} className="project-card" >
                 <Row>
                     <Col ref={parent} className="project-details" xs={10} sm={11}>
-                        <h3 className="project-title">{props.title}</h3>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <h3 className="project-title">{props.title}</h3>
+                            {expanded && 
+                                <Button 
+                                    variant="outline-secondary" 
+                                    onClick={toggleEditMode} 
+                                    title="Edit entry" 
+                                    className="edit-button"
+                                    style={{ border: "none" }}
+                                >
+                                        { editMode ? <GoCheck /> :  <GoPencil />  }
+                                </Button>}
+                        </div>
                         <Row>
                             <Col xs={6}>
                                 <h4 className="project-category">{props.category}</h4>
@@ -64,7 +90,9 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                 {props.entryStartDate && <h4 className="project-date">{props.entryStartDate + " - " + props.entryEndDate}</h4>}
                             </Col>
                         </Row>
-                        {expanded && <MarkdownPreview source={ children as string } />}
+                        {expanded && 
+                            (editMode ?  <MarkdownEditor preview="edit" height={300} onChange={setEditorText} value={children as string} /> : <MarkdownPreview source={children as string} /> )
+                        }
                         {expanded && <CopyButton props={{ key: props.entryKey }} />}
                     </Col>
                     <Col xs={2} sm={1} className="expand-button flex-column">

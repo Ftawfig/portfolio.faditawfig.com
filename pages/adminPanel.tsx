@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import Hero from '../components/hero';
 import { Container } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -7,6 +8,10 @@ import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 import * as commands from "@uiw/react-md-editor/commands"
 import dynamic from "next/dynamic";
+import Spinner from 'react-bootstrap/Spinner';
+import EntryList from '../components/entryList';
+import { Entry } from '../components/entry';
+import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor"),
@@ -14,8 +19,19 @@ const MDEditor = dynamic(
 );
 
 export default function AdminPanel() {
-    const [value, setValue] = useState("**Hello world!!!**");
-    const [selectedType, setSelectedType] = useState(null); 1
+    const { data, isLoading, error } = useQuery('entries', async () => {
+        const res = await fetch('/api/entries');
+        return res.json();
+    });
+
+    if (error) return <p>Error: {String(error)}</p>;
+
+    const entries = data?.allEntries;
+
+    const [value, setValue] = useState("");
+    const [selectedType, setSelectedType] = useState(null);
+    const [expandResume, setExpandResume] = useState(false);
+    const [expandProjects, setExpandProjects] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,6 +67,14 @@ export default function AdminPanel() {
         setSelectedType(null);
     }
 
+    const handleExpandResume = () => {
+        setExpandResume(!expandResume);
+    }
+
+    const handleExpandProjects = () => {
+        setExpandProjects(!expandProjects);
+    }
+
     return (
         <>
             <Hero props={{ title: "Admin" }}>
@@ -64,8 +88,56 @@ export default function AdminPanel() {
                     gap: 25,
                 }}
             >
-                <h2 className="subheader">Projects</h2>
-                <h2 className="subheader">Resume Entries</h2>
+                {
+                    isLoading ?
+                        <Container
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '50vh',
+                                gap: '10px'
+                            }}
+                        >
+                            <Spinner animation="border" role="status" />
+                            <span>Loading...</span>
+                        </Container>
+                        : error ? <p>Error: {String(error)}</p> :
+                            <>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        gap: 10,
+                                        marginTop: 25,
+                                        borderBottom: '1px solid #ccc',
+                                    }}
+                                >
+                                    <h2 className="subheader">Projects</h2>
+                                    <Button variant="none" onClick={handleExpandProjects} style={{ borderRadius: 1 }}>{
+                                        expandProjects ? <IoIosArrowDown /> : <IoIosArrowForward />
+                                    }</Button>
+                                </div>
+                                { expandProjects && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'project'), selectedTag: null }} /> }
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        gap: 10,
+                                        marginTop: 25,
+                                        borderBottom: '1px solid #ccc',
+                                    }}
+                                >
+                                    <h2 className="subheader">Resume Entries</h2>
+                                    <Button variant="none" onClick={handleExpandResume} style={{ borderRadius: 1 }}>{
+                                        expandResume ? <IoIosArrowDown /> : <IoIosArrowForward />
+                                    }</Button>
+                                </div>
+                                { expandResume && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'resume'), selectedTag: null }} /> }
+                            </>
+                }
                 <h2 className="subheader">Create new entry</h2>
                 <Container
                     style={{
