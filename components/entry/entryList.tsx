@@ -3,7 +3,7 @@ import { Container, ListGroup, Button, OverlayTrigger, Tooltip, Overlay } from '
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { Entry } from './entry';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { Entry as EntryType } from '../types';
+import { Entry as EntryType } from '../../types';
 
 interface EntryListProps {
     entries: EntryType[];

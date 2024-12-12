@@ -20,13 +20,17 @@ export const dbService = {
     getProjects,
     getResume,
     getEducation,
-    getAllEntires
+    getAllEntires,
+    editProject,
+    editResumeEntry,
+    editEducationEntry,
+    deleteEntry
 }
 
 function insertProject(
     userId: number,
     entryTitle: string,
-    entryCategory: string, 
+    entryCategory: string,
     entryKey: string,
     entryDescription: string
 ): void {
@@ -105,6 +109,64 @@ async function getAllEntires() {
     }
 
     return await getQueryResults(query);
+}
+
+
+function editProject(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string,
+    entryKey: string,
+    entryDescription: string
+): void {
+    const query = {
+        text: 'UPDATE entries SET entry_title = $2, entry_category = $3, entry_description = $5 WHERE user_id = $1 AND entry_key = $4',
+        values: [userId, entryTitle, entryCategory, entryKey, entryDescription],
+    }
+    getQueryResults(query);
+}
+
+function editResumeEntry(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string,
+    entryKey: string,
+    entryDescription: string,
+    entryStartDate: string,
+    entryEndDate: string
+): void {
+    const query = {
+        text: 'UPDATE entries SET entry_title = $2, entry_category = $3, entry_description = $5, start_date = $6, end_date = $7 WHERE user_id = $1 AND entry_key = $4',
+        values: [userId, entryTitle, entryCategory, entryKey, entryDescription, entryStartDate, entryEndDate],
+    }
+
+    getQueryResults(query);
+}
+
+function editEducationEntry(
+    userId: number,
+    entryTitle: string,
+    entryCategory: string,
+    entryKey: string,
+    entryDescription: string,
+    entryStartDate: string,
+    entryEndDate: string
+): void {
+    const query = {
+        text: 'UPDATE entries SET entry_title = $2, entry_category = $3, entry_description = $5, start_date = $6, end_date = $7 WHERE user_id = $1 AND entry_key = $4',
+        values: [userId, entryTitle, entryCategory, entryKey, entryDescription, entryStartDate, entryEndDate],
+    }
+
+    getQueryResults(query);
+}
+
+function deleteEntry(userId: number, entryKey: string): void {
+    const query = {
+        text: 'DELETE FROM entries WHERE user_id = $1 AND entry_key = $2',
+        values: [userId, entryKey],
+    }
+
+    getQueryResults(query);
 }
 
 async function getQueryResults(query): Promise<any> {

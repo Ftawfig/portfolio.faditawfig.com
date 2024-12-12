@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Container, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Hero from '../components/hero';
-import { Entry } from '../components/entry';
-import EntryList from '../components/entryList';
+import { Entry } from '../components/entry/entry';
+import EntryList from '../components/entry/entryList';
 import Button from 'react-bootstrap/Button';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Head from 'next/head';

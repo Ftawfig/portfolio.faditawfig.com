@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { Container } from 'react-bootstrap';
 import Hero from '../components/hero';
-import EntryList from '../components/entryList';
+import EntryList from '../components/entry/entryList';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Head from 'next/head';
 import Spinner from 'react-bootstrap/Spinner';
@@ -24,6 +24,11 @@ export default function Resume() {
         const startDate = entry.entryStartDate;
         entry.startYear = startDate?.substr(startDate.length - 4);
     })
+
+    // sort entries by start date
+    resumeEntries?.sort((a, b) => {
+        return parseInt(b.startYear) - parseInt(a.startYear);
+    });
 
     console.log(resumeEntries);
 
