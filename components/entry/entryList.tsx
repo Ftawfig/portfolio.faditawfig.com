@@ -10,21 +10,20 @@ import { Entry as EntryType } from '../../types';
 interface EntryListProps {
     entries: EntryType[];
     selectedTag?: string | null;
+    entryListType?: "resume" | "project";
 }
 
 export default function EntryList({ props }: { props: EntryListProps }) {
     const [parent] = useAutoAnimate();
-    console.log("EntryList: ", props.entries);
-
     const [expandAll, setExpandAll] = useState(false);
     const [entryList, setEntryList] = useState([...props.entries]);
     const [reorderMode, setReorderMode] = useState(false);
     const [orderIndexes, setOrderIndexes] = useState([{ entryKey: "", orderIndex: 0 }]);
-    console.log(orderIndexes);
 
     useEffect(() => {
         const orderIndexes = [...props.entries].map((entry, index) => {
-            return { entryKey: entry.entryKey, orderIndex: entry.orderIndex }
+            const entryOrderIndex = entry.orderIndex ? entry.orderIndex : index + 1;
+            return { entryKey: entry.entryKey, orderIndex: entryOrderIndex };
         });
         setOrderIndexes(orderIndexes);
 
@@ -66,11 +65,8 @@ export default function EntryList({ props }: { props: EntryListProps }) {
         if (newOrderIndex < 1) {
             newOrderIndex = 1;
         } else if (newOrderIndex > entryList.length) {
-            newOrderIndex = entryList.length;
+            newOrderIndex = 1;
         }
-
-        console.log("Current order index: ", curOrderIndex);
-        console.log("New order index: ", newOrderIndex);
 
         const newOrderIndexes = [...orderIndexes].map((o) => {
             if (o.entryKey === entryKey) {
@@ -109,7 +105,6 @@ export default function EntryList({ props }: { props: EntryListProps }) {
     }, [orderIndexes]);
 
     useEffect(() => {
-        console.log("EntryList: ", entryList);
     }, [entryList]);
 
     const tooltip = (
@@ -128,7 +123,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
                     justifyContent: "space-between"
                 }}
             >
-                <div>
+                <div>{props.entryListType === "project" && <>
                     {reorderMode ?
                         <Button
                             variant="outline-secondary"
@@ -147,7 +142,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
                         >
                             <CgReorder />
                         </Button>
-                    }
+                    }</>}
                 </div>
                 <OverlayTrigger placement="left" overlay={tooltip}>
                     <Button variant="outline-secondary" onClick={handleClick} style={{ borderRadius: 1 }}>{
@@ -180,7 +175,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
                                                 alignContent: "center",
                                             }}
                                         >
-
+                                            <span>{String(orderIndexes.find(o => o.entryKey === entry.entryKey).orderIndex)}</span>
                                             <div
                                                 style={{
                                                     display: "flex",

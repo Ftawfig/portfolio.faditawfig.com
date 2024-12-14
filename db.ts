@@ -79,7 +79,7 @@ function insertEducationEntry(
 
 async function getProjects() {
     const query = {
-        text: 'SELECT * FROM entries WHERE entry_type = $1',
+        text: 'SELECT * FROM entries WHERE entry_type = $1 ORDER BY order_index',
         values: ["project"],
     }
 

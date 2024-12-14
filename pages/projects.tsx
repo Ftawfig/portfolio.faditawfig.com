@@ -76,7 +76,7 @@ export default function Projects() {
                                 })
                             }
                         </Container>
-                        <EntryList props={{ entries: projects, selectedTag: selectedTag }} />
+                        <EntryList props={{ entries: projects, selectedTag: selectedTag, entryListType: "project" }} />
                     </>
                 }
 

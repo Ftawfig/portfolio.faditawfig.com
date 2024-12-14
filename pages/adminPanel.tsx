@@ -227,7 +227,7 @@ export default function AdminPanel() {
                                         expandProjects ? <IoIosArrowDown /> : <IoIosArrowForward />
                                     }</Button>
                                 </div>
-                                {expandProjects && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'project'), selectedTag: null }} />}
+                                {expandProjects && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'project').sort((a, b) => a.orderIndex - b.orderIndex), selectedTag: null, entryListType: "project" }} />}
                                 <div
                                     style={{
                                         display: 'flex',
