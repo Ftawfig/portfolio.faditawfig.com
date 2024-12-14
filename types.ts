@@ -5,5 +5,6 @@ export type Entry = {
     category: string,
     date?: string,
     description: string,
-    isExpanded?: boolean
+    isExpanded?: boolean,
+    orderIndex?: number
 }

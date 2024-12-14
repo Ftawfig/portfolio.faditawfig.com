@@ -24,7 +24,8 @@ export const dbService = {
     editProject,
     editResumeEntry,
     editEducationEntry,
-    deleteEntry
+    deleteEntry,
+    updateOrderIndexes
 }
 
 function insertProject(
@@ -167,6 +168,17 @@ function deleteEntry(userId: number, entryKey: string): void {
     }
 
     getQueryResults(query);
+}
+
+function updateOrderIndexes(userId: number, orderIndexes: { entryKey: string, orderIndex: number }[]): void {
+    orderIndexes.forEach((entry) => {
+        const query = {
+            text: 'UPDATE entries SET order_index = $3 WHERE user_id = $1 AND entry_key = $2',
+            values: [userId, entry.entryKey, entry.orderIndex],
+        }
+
+        getQueryResults(query);
+    });
 }
 
 async function getQueryResults(query): Promise<any> {

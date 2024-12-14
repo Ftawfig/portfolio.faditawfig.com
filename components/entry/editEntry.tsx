@@ -117,13 +117,17 @@ export function EditEntry({ props, children, toggleEditMode }: { props: EntryPro
                                 alignContent: "center",
                                 gap: 10
                             }}>
-                            <Form.Group controlId="entryStartDate" style={{ marginTop: 15, marginBottom: 15 }}>
-                                <Form.Control size="sm" type="text" defaultValue={props.entryStartDate} />
-                            </Form.Group>
-                            <span> - </span>
-                            <Form.Group controlId="entryEndDate" style={{ marginTop: 15, marginBottom: 15 }}>
-                                <Form.Control size="sm" type="text" defaultValue={props.entryEndDate} />
-                            </Form.Group>
+                            {props.entryType !== "project" &&
+                                <>
+                                    <Form.Group controlId="entryStartDate" style={{ marginTop: 15, marginBottom: 15 }}>
+                                        <Form.Control size="sm" type="text" defaultValue={props.entryStartDate} />
+                                    </Form.Group>
+                                    <span> - </span>
+                                    <Form.Group controlId="entryEndDate" style={{ marginTop: 15, marginBottom: 15 }}>
+                                        <Form.Control size="sm" type="text" defaultValue={props.entryEndDate} />
+                                    </Form.Group>
+                                </>
+                            }
                         </div>
                     </Col>
                 </Row>

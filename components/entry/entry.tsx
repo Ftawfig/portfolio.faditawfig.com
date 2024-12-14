@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { use } from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
-import { Row, Col, ListGroup, Button } from 'react-bootstrap';
+import { Row, Col, ListGroup, Button, Form } from 'react-bootstrap';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import CopyButton from '../copyButton';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -22,8 +22,8 @@ export interface EntryProps {
     entryStartDate?: string,
     entryEndDate?: string,
     description: string | React.ReactNode,
-    isExpanded?: boolean
-    editMode?: boolean
+    isExpanded?: boolean,
+    editMode?: boolean,
 }
 
 export function Entry({ props, children }: { props: EntryProps, children: React.ReactNode }) {
@@ -59,6 +59,7 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
         setEditMode(!editMode);
     };
 
+
     return (
         <div className="project-button" key={props.entryKey}>
             <ListGroup.Item ref={myRef} className="project-card" >
@@ -93,12 +94,12 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                         {props.entryStartDate && <h4 className="project-date">{props.entryStartDate + " - " + props.entryEndDate}</h4>}
                                     </Col>
                                 </Row>
-                                { expanded && <MarkdownPreview source={children as string} /> }
-                                { expanded && <CopyButton props={{ key: props.entryKey }} /> }
+                                {expanded && <MarkdownPreview source={children as string} />}
+                                {expanded && <CopyButton props={{ key: props.entryKey }} />}
                             </Col>
                             :
                             <EditEntry props={props} toggleEditMode={toggleEditMode} >
-                                { children }
+                                {children}
                             </EditEntry>
                     }
                     <Col xs={2} sm={1} className="expand-button flex-column">

@@ -53,6 +53,7 @@ function NewEntryForm() {
         // Reset the form
         e.target.reset();
         setSelectedType(null);
+        setValue("");
     }
 
     return (
