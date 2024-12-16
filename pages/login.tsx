@@ -1,20 +1,22 @@
 import React from 'react';
 import Hero from '../components/hero';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Head from 'next/head';
-import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { MdOutlineEmail } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
+import { useSession, signOut, signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function Contact() {
+    const { data: session } = useSession();
+
     return (
         <>
             <Head>
-                <title key="title">Contact | portfolio.faditawfig.com</title>
+                <title key="title">Login | portfolio.faditawfig.com</title>
                 <meta name="description" content="Contact Fadi Tawfig" />
             </Head>
-            <Hero props={{ title: "Contact" }}>
-                Feel free to get in touch via email, or visit <a href="https://faditawfig.com">faditawfig.com</a> for more information on consulting and services.
+            <Hero props={{ title: "Login" }}>
+                Login to access the admin panel.
             </Hero>
             <Container className="main">
                 <div
@@ -37,47 +39,31 @@ export default function Contact() {
                             fontSize: 20
                         }}
                     >
-                        <MdOutlineEmail size={22} />
-                        <p><a href="mailto:faditawfig@gmail.com" target="_blank">faditawfig@gmail.com</a></p>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignContent: 'center',
-                            alignItems: 'baseline',
-                            gap: 10,
-                            fontSize: 20
-                        }}
-                    >
-                        <FaGithub size={22} />
-                        <p><a href="https://github.com/Ftawfig" target="_blank">Ftawfig</a></p>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignContent: 'center',
-                            alignItems: 'baseline',
-                            gap: 10,
-                            fontSize: 20
-                        }}
-                    >
-                        <FaLinkedin size={22} />
-                        <p><a href="https://www.linkedin.com/in/fadi-tawfig/" target="_blank">Fadi Tawfig</a></p>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignContent: 'center',
-                            alignItems: 'baseline',
-                            gap: 10,
-                            fontSize: 20
-                        }}
-                    >
-                        <FaXTwitter size={22} />
-                        <p><a href="https://x.com/FadiTawfig" target="_blank">@FadiTawfig</a></p>
+
+                        <div>
+                            {session ?
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 10
+                                    }}
+                                >
+                                    <p>Logged in as {session.user.email}</p>
+
+                                    <Button onClick={() => signOut()} variant="outline-secondary">
+                                        Logout
+                                    </Button>
+                                    <Link href="/adminPanel">Go to admin panel</Link>
+                                </div>
+                                :
+                                <div>
+                                    <Button onClick={() => signIn('github')} variant="outline-secondary">
+                                        <FaGithub size={22} /> Login with Github
+                                    </Button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </Container>

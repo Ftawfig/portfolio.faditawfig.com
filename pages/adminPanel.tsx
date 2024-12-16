@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Hero from '../components/hero';
 import { Container } from 'react-bootstrap';
@@ -12,6 +12,26 @@ import Spinner from 'react-bootstrap/Spinner';
 import EntryList from '../components/entry/entryList';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import { useSession, getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { session }
+    };
+}
 
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor"),

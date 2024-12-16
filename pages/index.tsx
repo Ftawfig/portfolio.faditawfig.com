@@ -3,8 +3,20 @@ import React from 'react';
 import Link from 'next/link';
 import { IoIosArrowForward } from "react-icons/io";
 import Head from 'next/head';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 export default function Page() {
+    const { data: session } = useSession();
+
+    if (session) {
+        console.log("Session exists");
+        Router.push('/adminPanel');
+    } else {
+        console.log("No session");
+        Router.push('/login');
+    }
+
     return (
         <>
             <Head>
