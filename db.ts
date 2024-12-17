@@ -25,7 +25,8 @@ export const dbService = {
     editResumeEntry,
     editEducationEntry,
     deleteEntry,
-    updateOrderIndexes
+    updateOrderIndexes,
+    getUserByEmail
 }
 
 function insertProject(
@@ -179,6 +180,22 @@ function updateOrderIndexes(userId: number, orderIndexes: { entryKey: string, or
 
         getQueryResults(query);
     });
+}
+
+// users 
+async function getUserByEmail(email: string): Promise<any> {
+    const query = {
+        text: 'SELECT * FROM users WHERE email = $1',
+        values: [email],
+    }
+
+    const userData = await getQueryResults(query);
+
+    if (userData.length > 0) {
+        return userData[0];
+    } else {
+        return null;
+    }
 }
 
 async function getQueryResults(query): Promise<any> {

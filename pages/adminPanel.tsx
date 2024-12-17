@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import Hero from '../components/hero';
 import { Container } from 'react-bootstrap';
@@ -12,6 +12,24 @@ import Spinner from 'react-bootstrap/Spinner';
 import EntryList from '../components/entry/entryList';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import { useSession, getSession } from 'next-auth/react';
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { session }
+    };
+}
 
 const MDEditor = dynamic(
     () => import("@uiw/react-md-editor"),
@@ -19,12 +37,13 @@ const MDEditor = dynamic(
 );
 
 function NewEntryForm() {
+    const { data: session } = useSession();
     const [value, setValue] = useState("");
     const [selectedType, setSelectedType] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const userId = 1;
+        const userId = session.account.id;
         const entryTitle = e.target.entryTitle.value;
         const entryCategory = e.target.entryCategory.value;
         const entryText = value;

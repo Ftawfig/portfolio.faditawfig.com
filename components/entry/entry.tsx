@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
 import { Row, Col, ListGroup, Button, Form } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import dynamic from 'next/dynamic';
 import { GoPencil, GoCheck } from "react-icons/go";
 import { EditEntry } from './editEntry';
+import { useSession } from 'next-auth/react';
 
 const MarkdownPreview = dynamic(() => import('@uiw/react-markdown-preview'), { ssr: false });
 const MarkdownEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
@@ -27,6 +28,7 @@ export interface EntryProps {
 }
 
 export function Entry({ props, children }: { props: EntryProps, children: React.ReactNode }) {
+    const { data: session } = useSession();
     const [editMode, setEditMode] = useState(false);
     const [expanded, setExpanded] = useState(props.isExpanded);
     const myRef = useRef(null);
@@ -44,16 +46,16 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
     const { key } = router.query;
 
     useEffect(() => {
+        setExpanded(props.isExpanded);
+    }, [props.isExpanded]);
+
+    useEffect(() => {
         // Expand the project if the id parameter matches the project id
         if (props.entryKey && key && props.entryKey === key) {
             myRef.current.scrollIntoView();
             setExpanded(true);
         }
     }, [key]);
-
-    useEffect(() => {
-        setExpanded(props.isExpanded);
-    }, [props.isExpanded]);
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -75,7 +77,7 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                     }}
                                 >
                                     <h3 className="project-title">{props.title}</h3>
-                                    {expanded &&
+                                    {expanded && session &&
                                         <Button
                                             variant="outline-secondary"
                                             onClick={() => setEditMode(true)}
