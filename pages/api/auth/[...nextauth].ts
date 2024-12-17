@@ -16,14 +16,32 @@ export const authOptions = {
       const { email } = user;
       const { name } = profile;
       const { id } = account;
+      const adminEmail = process.env.ADMIN_EMAIL;
 
       const userData = await dbService.getUserByEmail(email);
 
-      if (userData === null) {
+      console.log(userData);
+
+      if (userData === null || email != adminEmail) {
         return false;
       }
 
       return true;
+    },async jwt({ token }) {
+      const { user, account } = token;
+
+      console.log(user);
+
+      if (!token.account) {
+        const userData = await dbService.getUserByEmail(token.email);
+        console.log("USERDATA: ", userData);
+        token.account = userData;
+        console.log("TOKEN: ", token);
+      }
+
+      return token;
+    },async session({ token }) {
+      return token;
     },
   },
 }

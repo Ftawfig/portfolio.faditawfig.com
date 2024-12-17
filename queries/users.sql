@@ -4,3 +4,5 @@ CREATE TABLE users (
     email VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+insert into users (username, email) values ('faditawfig', 'faditawfig@gmail.com');

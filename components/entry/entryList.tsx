@@ -6,6 +6,7 @@ import { GoCheck } from "react-icons/go";
 import { Entry } from './entry';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Entry as EntryType } from '../../types';
+import { useSession } from 'next-auth/react';
 
 interface EntryListProps {
     entries: EntryType[];
@@ -14,6 +15,9 @@ interface EntryListProps {
 }
 
 export default function EntryList({ props }: { props: EntryListProps }) {
+    const { data: session } = useSession();
+    const userId = session?.account?.id;
+
     const [parent] = useAutoAnimate();
     const [expandAll, setExpandAll] = useState(false);
     const [entryList, setEntryList] = useState([...props.entries]);
@@ -88,7 +92,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId : 1, orderIndexes : orderIndexes })
+            body: JSON.stringify({ userId : userId, orderIndexes : orderIndexes })
         });
 
         if (res.status === 200) {
@@ -123,7 +127,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
                     justifyContent: "space-between"
                 }}
             >
-                <div>{props.entryListType === "project" && <>
+                <div>{props.entryListType === "project" && session && <> 
                     {reorderMode ?
                         <Button
                             variant="outline-secondary"

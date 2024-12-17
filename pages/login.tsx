@@ -9,6 +9,8 @@ import Link from 'next/link';
 export default function Contact() {
     const { data: session } = useSession();
 
+    console.log(session);
+
     return (
         <>
             <Head>
@@ -49,7 +51,7 @@ export default function Contact() {
                                         gap: 10
                                     }}
                                 >
-                                    <p>Logged in as {session.user.email}</p>
+                                    <p>Logged in as {session?.account.email}</p>
 
                                     <Button onClick={() => signOut()} variant="outline-secondary">
                                         Logout

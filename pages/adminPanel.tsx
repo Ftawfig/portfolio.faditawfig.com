@@ -39,12 +39,13 @@ const MDEditor = dynamic(
 );
 
 function NewEntryForm() {
+    const { data: session } = useSession();
     const [value, setValue] = useState("");
     const [selectedType, setSelectedType] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const userId = 1;
+        const userId = session.account.id;
         const entryTitle = e.target.entryTitle.value;
         const entryCategory = e.target.entryCategory.value;
         const entryText = value;
