@@ -13,8 +13,6 @@ import EntryList from '../components/entry/entryList';
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import { useSession, getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-
 
 export async function getServerSideProps(context) {
     const session = await getSession(context);
