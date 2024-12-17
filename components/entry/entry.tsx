@@ -44,16 +44,16 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
     const { key } = router.query;
 
     useEffect(() => {
+        setExpanded(props.isExpanded);
+    }, [props.isExpanded]);
+
+    useEffect(() => {
         // Expand the project if the id parameter matches the project id
         if (props.entryKey && key && props.entryKey === key) {
             myRef.current.scrollIntoView();
             setExpanded(true);
         }
     }, [key]);
-
-    useEffect(() => {
-        setExpanded(props.isExpanded);
-    }, [props.isExpanded]);
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
