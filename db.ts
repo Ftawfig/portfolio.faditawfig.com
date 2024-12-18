@@ -20,7 +20,7 @@ export const dbService = {
     getProjects,
     getResume,
     getEducation,
-    getAllEntires,
+    getAllEntries,
     editProject,
     editResumeEntry,
     editEducationEntry,
@@ -105,7 +105,7 @@ async function getEducation() {
     return await getQueryResults(query);
 }
 
-async function getAllEntires() {
+async function getAllEntries() {
     const query = {
         text: 'SELECT * FROM entries',
     }
