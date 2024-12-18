@@ -14,7 +14,6 @@ import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import { useSession, getSession } from 'next-auth/react';
 
-
 // Redirect to login page if user is not authenticated
 export async function getServerSideProps(context) {
     const session = await getSession(context);

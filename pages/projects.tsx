@@ -44,7 +44,7 @@ export default function Projects() {
     return (
         <>
             <Head>
-                <title key="title">Fadi Tawfig's Online Portfolio | portfolio.fadtawfig.com</title>
+                <title key="title">Fadi Tawfig's Portfolio | portfolio.fadtawfig.com</title>
                 <meta name="description" content="Fadi Tawfig's online resume & portfolio." />
             </Head>
             <Hero props={{ title: "Projects" }}>

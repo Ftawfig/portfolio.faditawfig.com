@@ -17,7 +17,7 @@ export default function Page() {
                     <p>Online resume and portfolio for Fadi Tawfig: Toronto-based analytics engineer. Web dev. Hobbyist game-dev.</p>
                 </div>
             </Container>
-            <Container className="main">
+            <Container className="main" style={{ marginTop: 30 }}>
                 <ListGroup>
                     <Link href="/projects"><ListGroup.Item>Projects <IoIosArrowForward /></ListGroup.Item></Link>
                     <Link href="/resume"><ListGroup.Item>Resume <IoIosArrowForward /></ListGroup.Item></Link>
