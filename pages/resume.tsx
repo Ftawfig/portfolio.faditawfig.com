@@ -1,11 +1,12 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Hero from '../components/hero';
 import EntryList from '../components/entry/entryList';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Head from 'next/head';
 import Spinner from 'react-bootstrap/Spinner';
+import { FaFileDownload } from "react-icons/fa";
 
 export default function Resume() {
     const [parent] = useAutoAnimate();
@@ -31,6 +32,10 @@ export default function Resume() {
     });
 
     console.log(resumeEntries);
+
+    const handleDownloadResume = async () => {
+        window.location.href = '/api/download';
+    }
 
     return (
         <>
@@ -58,6 +63,13 @@ export default function Resume() {
                         </Container> 
                         : error ? <p>Error: {String(error)}</p> :
                         <>
+                            <Button
+                                variant="primary"
+                                onClick={handleDownloadResume}
+                                style={{ marginBottom: 20 }}
+                            >
+                                <FaFileDownload /> Download resume
+                            </Button>
                             <h2 className="subheader">Work experience</h2>
                             <EntryList props={{ entries: resumeEntries.filter(e => e.entryType == 'resume'), selectedTag: null }} />
                             <h2 className="subheader">Education</h2>
