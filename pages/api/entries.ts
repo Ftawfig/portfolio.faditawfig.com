@@ -5,7 +5,7 @@ import { Entry } from '../../types';
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if (req.method === 'GET') {
         try {
-            const data = await dbService.getAllEntires();
+            const data = await dbService.getAllEntries();
             // shape the data to match the shape of the data in the client
             const allEntries : Entry[] = data.map((entry) => {
                 return {

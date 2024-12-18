@@ -14,6 +14,8 @@ import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
 import { useSession, getSession } from 'next-auth/react';
 
+
+// Redirect to login page if user is not authenticated
 export async function getServerSideProps(context) {
     const session = await getSession(context);
 
@@ -191,16 +193,10 @@ export default function AdminPanel() {
     const entries = data?.allEntries;
 
     const [expandResume, setExpandResume] = useState(false);
+    const [expandEducation, setExpandEducation] = useState(false);
     const [expandProjects, setExpandProjects] = useState(false);
     const [newEntry, setNewEntry] = useState(false);
 
-    const handleExpandResume = () => {
-        setExpandResume(!expandResume);
-    }
-
-    const handleExpandProjects = () => {
-        setExpandProjects(!expandProjects);
-    }
 
     return (
         <>
@@ -242,7 +238,7 @@ export default function AdminPanel() {
                                     }}
                                 >
                                     <h2 className="subheader">Projects</h2>
-                                    <Button variant="none" onClick={handleExpandProjects} style={{ borderRadius: 1 }}>{
+                                    <Button variant="none" onClick={() => setExpandProjects(!expandProjects)} style={{ borderRadius: 1 }}>{
                                         expandProjects ? <IoIosArrowDown /> : <IoIosArrowForward />
                                     }</Button>
                                 </div>
@@ -258,11 +254,27 @@ export default function AdminPanel() {
                                     }}
                                 >
                                     <h2 className="subheader">Resume Entries</h2>
-                                    <Button variant="none" onClick={handleExpandResume} style={{ borderRadius: 1 }}>{
+                                    <Button variant="none" onClick={() => setExpandResume(!expandResume)} style={{ borderRadius: 1 }}>{
                                         expandResume ? <IoIosArrowDown /> : <IoIosArrowForward />
                                     }</Button>
                                 </div>
                                 {expandResume && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'resume'), selectedTag: null }} />}
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        gap: 10,
+                                        marginTop: 25,
+                                        borderBottom: '1px solid #ccc',
+                                    }}
+                                >
+                                    <h2 className="subheader">Education Entries</h2>
+                                    <Button variant="none" onClick={() => setExpandEducation(!expandEducation)} style={{ borderRadius: 1 }}>{
+                                        expandEducation ? <IoIosArrowDown /> : <IoIosArrowForward />
+                                    }</Button>
+                                </div>
+                                {expandEducation && <EntryList props={{ entries: entries?.filter(e => e.entryType == 'education'), selectedTag: null }} />}
                             </>
                 }
                 <h2 className="subheader">Create new entry</h2>
