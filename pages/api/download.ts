@@ -5,9 +5,10 @@ import path from 'path';
 
 const PDFDocument = require('pdfkit');
 
-const fontFile = 'Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf';
-path.join(process.cwd(),"public","fonts",fontFile);
-const headingFont = path.join(process.cwd(),"public","fonts",fontFile);
+const fontFile = 'Space_Grotesk/static/SpaceGrotesk-Regular.ttf';
+const fontFileBold = 'Space_Grotesk/static/SpaceGrotesk-SemiBold.ttf';
+const headingFont = path.join(process.cwd(),"fonts",fontFile);
+const headingFontBold = path.join(process.cwd(),"fonts",fontFileBold);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -74,9 +75,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 function addEntryText(doc: any, entry: any) {
-    doc.font(headingFont);
+    doc.font(headingFontBold);
 
     doc.fontSize(14).text(entry.entry_title);
+    doc.font(headingFont);
     doc.fontSize(12).text(entry.entry_category, { align: 'left', continued: true, underline: true })
         .text(entry.start_date + ' - ' + entry.end_date, { align: 'right' })
         .moveDown();
