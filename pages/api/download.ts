@@ -37,8 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             addHeader(doc);
 
             // resume entries
-            doc.font(headingFont);
-            doc.fontSize(16).text('Experience', { align: 'center' }).moveDown();
             data.filter(e => e.entry_type === "resume").forEach((entry: any) => {
                 addEntryText(doc, entry);
             });
@@ -57,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
             // Finalize the PDF
-            doc.end();
+            await doc.end();
 
             res.status(200);
         } catch (error) {
@@ -88,10 +86,9 @@ function addHeader(doc: any) {
     doc.font(headingFont);
     doc.fontSize(18).text('FADI TAWFIG', { align: 'left', continued: true });
     doc.fontSize(12);
-    doc.font('Helvetica');
-    doc.text('faditawfig@gmail.com', { align: 'right' })
-    doc.text('(416) 895-0558', { align: 'right' });
-    doc.text('https://portfolio.faditawfig.com', { align: 'right' });
-    doc.text('https://linkedin.com/in/fadi-tawfig/', { align: 'right' });
+    doc.text('faditawfig@gmail.com', { align: 'right', link: 'mailto:faditawfig.com' });
+    doc.text('(416) 895-0558', { align: 'right', link: 'tel:+14168950558' });
+    doc.text('https://portfolio.faditawfig.com', { align: 'right', link: 'https://portfolio.faditawfig.com'});
+    doc.text('https://linkedin.com/in/fadi-tawfig/', { align: 'right', link: 'https://linkedin.com/in/fadi-tawfig/'});
     doc.moveDown();
 }
