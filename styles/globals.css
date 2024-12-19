@@ -1,8 +1,27 @@
+body {
+    font-family: "Space Grotesk", serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: "Space Mono", serif !important;
+    font-optical-sizing: auto;
+    font-weight: 200;
+}
+
+
 .navbar-main {
     /*box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);*/
     border-bottom: solid 1px #eaeaea;
     padding-top: 40px;
     padding-bottom: 12px;
+}
+
+.nav-link {
+    font-weight: 700;
+    font-family: "Space Mono", serif !important;
+
 }
 
 .nav-container {
@@ -34,7 +53,6 @@
 }
 
 .hero {
-    height: 25vh;
     min-height: 275px;
     max-width: 750px;
 
@@ -43,9 +61,33 @@
     background-color: rgb(44, 44, 44); */
 }
 
+
+@media screen and (min-width: 768px){
+    .hero {
+        height: 25vh;
+    }
+    .main-page-text {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 3px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        margin-top: 50px;
+    }
+    .main-page-text {
+        margin-top: 30px;
+        flex-direction: column;
+        gap: 3px;
+    }
+    
+}
 .hero-content {
     position: relative;
-    top: 30%;   
+    top: 30%;
 }
 
 .hero p {
@@ -59,7 +101,7 @@
 }
 
 .expand-button {
-    border-left  : 1px solid rgb(73, 80, 87);
+    border-left: 1px solid rgb(73, 80, 87);
     align-self: stretch !important;
 }
 
@@ -92,7 +134,8 @@
     font-weight: 400;
 }
 
-.project-category, .project-date {
+.project-category,
+.project-date {
     display: inline;
     margin-top: 10px;
     font-size: 1.1rem;
@@ -113,7 +156,8 @@
     font-weight: 300;
 }
 
-.project-card .col-1, .project-card .col-2  {
+.project-card .col-1,
+.project-card .col-2 {
     display: flex;
     align-self: center;
     justify-content: center;
@@ -165,4 +209,37 @@
 
 div.row {
     margin: 0px;
+}
+
+.animated-text {
+    transition: all 0.5s ease;
+}
+
+.slide-up {
+    transform: translateY(-100%);
+}
+
+.https {
+    letter-spacing: -15px;
+    display: block;
+    opacity: 0;
+    transform: translateY(-50%) !important;
+
+}
+
+.homepage-title:hover {
+    transform: translateY(15%);
+    transition: all 0.2s ease;
+}
+
+.homepage-title:hover .https {
+    letter-spacing: normal;
+    display: block;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(15%);
+    transition: all 0.2s ease;
 }

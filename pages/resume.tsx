@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Hero from '../components/hero';
 import EntryList from '../components/entry/entryList';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
@@ -59,12 +59,11 @@ export default function Resume() {
                         : error ? <p>Error: {String(error)}</p> :
                         <>
                             <h2 className="subheader">Work experience</h2>
-                            <EntryList props={{ entries: resumeEntries.filter(e => e.entryType == 'resume'), selectedTag: null }} />
+                            <EntryList props={{ entryListType: "resume", entries: resumeEntries.filter(e => e.entryType == 'resume'), selectedTag: null }} />
                             <h2 className="subheader">Education</h2>
                             <EntryList props={{ entries: resumeEntries.filter(e => e.entryType == 'education'), selectedTag: null }} />
                         </>
                 }
-
             </Container>
         </>
     )
