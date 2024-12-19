@@ -96,8 +96,12 @@ export function Entry({ props, children }: { props: EntryProps, children: React.
                                         {props.entryStartDate && <h4 className="project-date">{props.entryStartDate + " - " + props.entryEndDate}</h4>}
                                     </Col>
                                 </Row>
+                                <div
+                                    style={{paddingLeft: 15, marginTop: 20 }}
+                                >
                                 {expanded && <MarkdownPreview source={children as string} />}
                                 {expanded && <CopyButton props={{ key: props.entryKey }} />}
+                                </div>
                             </Col>
                             :
                             <EditEntry props={props} toggleEditMode={toggleEditMode} >

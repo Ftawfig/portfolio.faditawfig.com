@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function Header() {
     const [theme, setTheme] = useState("light");
 
-    const handleClick = () => { 
+    const handleClick = () => {
         toggleTheme(theme, setTheme);
     }
 
@@ -28,8 +28,8 @@ export default function Header() {
         // detect system theme
         else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             setTheme('dark');
-        } 
-        else {    
+        }
+        else {
             setTheme('light');
         }
 
@@ -41,8 +41,11 @@ export default function Header() {
             <header >
                 <Navbar expand="md" className="navbar-main">
                     <Container className="nav-container">
-                        <Link className="navbar-brand" href="/">portfolio.faditawfig.com</Link>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                        <Link className="navbar-brand" href="/">
+                            <span style={{ textDecoration: "overline" }}>portfolio</span>.
+                            <span style={{ textDecoration: "underline" }}>faditawfig</span>.com
+                        </Link>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse>
                             <Nav className="me-auto">
                                 <Link className="nav-link" href="/projects">Projects</Link>
@@ -51,11 +54,12 @@ export default function Header() {
                                 <Link className="nav-link" href="/contact">Contact</Link>
                             </Nav>
                         </Navbar.Collapse>
-                        <Button 
-                            onClick={ handleClick }
+                        <Button
+                            onClick={handleClick}
                             variant={"outline" + (theme === 'dark' ? '-light' : '-dark')}
+                            style={{ borderRadius: 2}}
                         >
-                            { theme === 'dark' ?  <MdDarkMode/> : <MdOutlineDarkMode/>}
+                            {theme === 'dark' ? <MdDarkMode /> : <MdOutlineDarkMode />}
                         </Button>
                     </Container>
                 </Navbar>
@@ -68,7 +72,7 @@ function toggleTheme(theme, setTheme) {
     console.log(theme);
 
     var curTheme = localStorage.getItem('theme');
-    
+
     if (curTheme === 'light') {
         localStorage.setItem('theme', 'dark');
         setTheme('dark');

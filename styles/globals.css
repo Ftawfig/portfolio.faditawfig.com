@@ -4,6 +4,13 @@ body {
     font-style: normal;
 }
 
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: "Space Mono", serif !important;
+    font-optical-sizing: auto;
+    font-weight: 200;
+}
+
+
 .navbar-main {
     /*box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);*/
     border-bottom: solid 1px #eaeaea;
@@ -40,7 +47,6 @@ body {
 }
 
 .hero {
-    height: 25vh;
     min-height: 275px;
     max-width: 750px;
 
@@ -49,6 +55,26 @@ body {
     background-color: rgb(44, 44, 44); */
 }
 
+
+@media screen and (min-width: 768px){
+    .hero {
+        height: 25vh;
+    }
+    .main-page-text {
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero {
+        margin-top: 50px;
+    }
+    .main-page-text {
+        margin-top: 30px;
+        align-items: center;
+    }
+    
+}
 .hero-content {
     position: relative;
     top: 30%;
@@ -173,4 +199,12 @@ body {
 
 div.row {
     margin: 0px;
+}
+
+.animated-text {
+    transition: all 0.5s ease;
+}
+
+.slide-up {
+    transform: translateY(-100%);
 }
