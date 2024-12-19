@@ -7,6 +7,7 @@ import { Entry } from './entry';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { Entry as EntryType } from '../../types';
 import { useSession } from 'next-auth/react';
+import { FaFileDownload } from "react-icons/fa";
 
 interface EntryListProps {
     entries: EntryType[];
@@ -92,7 +93,7 @@ export default function EntryList({ props }: { props: EntryListProps }) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId : userId, orderIndexes : orderIndexes })
+            body: JSON.stringify({ userId: userId, orderIndexes: orderIndexes })
         });
 
         if (res.status === 200) {
@@ -117,6 +118,12 @@ export default function EntryList({ props }: { props: EntryListProps }) {
         </Tooltip>
     );
 
+    const downloadTooltip = (<Tooltip>Download resume as PDf</Tooltip>);
+
+    const handleDownloadResume = async () => {
+        window.location.href = '/api/download';
+    }
+
     return (
         <>
             <Container
@@ -127,26 +134,39 @@ export default function EntryList({ props }: { props: EntryListProps }) {
                     justifyContent: "space-between"
                 }}
             >
-                <div>{props.entryListType === "project" && session && <> 
-                    {reorderMode ?
-                        <Button
-                            variant="outline-secondary"
-                            onClick={handleSaveOrder}
-                            style={{ borderRadius: 1 }}
-                            title="Save order"
-                        >
-                            <GoCheck />
-                        </Button>
-                        :
-                        <Button
-                            variant="outline-secondary"
-                            onClick={() => setReorderMode(true)}
-                            style={{ borderRadius: 1 }}
-                            title="Reorder entries"
-                        >
-                            <CgReorder />
-                        </Button>
-                    }</>}
+                <div>
+                    {props.entryListType === "project" && session && <>
+                        {reorderMode ?
+                            <Button
+                                variant="outline-secondary"
+                                onClick={handleSaveOrder}
+                                style={{ borderRadius: 1 }}
+                                title="Save order"
+                            >
+                                <GoCheck />
+                            </Button>
+                            :
+                            <Button
+                                variant="outline-secondary"
+                                onClick={() => setReorderMode(true)}
+                                style={{ borderRadius: 1 }}
+                                title="Reorder entries"
+                            >
+                                <CgReorder />
+                            </Button>
+                        }</>}
+                    {props.entryListType === "resume" &&
+                        <OverlayTrigger placement="right" overlay={downloadTooltip}>
+                            <Button
+                                variant="outline-secondary"
+                                onClick={handleDownloadResume}
+                                style={{ borderRadius: 1 }}
+                                title="Download resume as PDF"
+                            >
+                                <FaFileDownload />
+                            </Button>
+                        </OverlayTrigger>
+                    }
                 </div>
                 <OverlayTrigger placement="left" overlay={tooltip}>
                     <Button variant="outline-secondary" onClick={handleClick} style={{ borderRadius: 1 }}>{

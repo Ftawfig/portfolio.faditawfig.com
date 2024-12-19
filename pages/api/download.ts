@@ -7,8 +7,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const data = await dbService.getResume();
 
+            // get year from start date 
+            data?.map(entry => {
+                const startDate = entry.start_date;
+                entry.startYear = startDate?.substr(startDate.length - 4);
+            })
+
+            // sort entries by start date
+            data?.sort((a, b) => {
+                return parseInt(b.startYear) - parseInt(a.startYear);
+            });
+
             // Create a new PDF document
-            const doc = new PDFDocument();
+            const doc = new PDFDocument({ font: 'Helvetica' });
+            //doc.registerFont('default', 'fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf', 'SpaceGrotesk');
+
+            //doc.font('fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf');
 
             // Set response headers for PDF download
             res.setHeader('Content-Type', 'application/pdf');
@@ -18,29 +32,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             doc.pipe(res);
 
             // Add content to the PDF
-            doc.fontSize(18).text('Fadi Tawfig', { align: 'left' });
-            doc.moveDown();
-
-            addContactInfo(doc);
+            addHeader(doc);
 
             // resume entries
-            doc.fontSize(16).text('Experience', { align: 'left' });
+            doc.fontSize(16).text('Experience', { align: 'center' }).moveDown();
             data.filter(e => e.entry_type === "resume").forEach((entry: any) => {
-                doc.fontSize(14).text(entry.entry_title);
-                doc.fontSize(12).text(entry.entry_description);
-                doc.moveDown();
+                addEntryText(doc, entry);
             });
 
             // education entries
-            doc.fontSize(16).text('Experience', { align: 'left' });
+            doc.fontSize(16).text('Education', { align: 'center' }).moveDown();
             data.filter(e => e.entry_type === "education").forEach((entry: any) => {
-                doc.fontSize(14).text(entry.entry_title);
-                doc.fontSize(12).text(entry.entry_description);
-                doc.moveDown();
+                addEntryText(doc, entry);
             });
 
 
-            doc.fontSize(12).text('Generated on: ' + new Date().toLocaleString() + ' by https://portfolio.faditawfig.com');
+            doc.fontSize(10).text('Generated on: ' + new Date().toLocaleString() + ' by https://portfolio.faditawfig.com');
 
             // Finalize the PDF
             doc.end();
@@ -57,10 +64,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 }
 
-function addContactInfo(doc: any) {
-    doc.fontSize(16).text('Contact Information', { align: 'left' });
-    doc.fontSize(12).text('Email: faditawfig@gmail.com');
-    doc.fontSize(12).text('Phone: 416-895-0558');
-    doc.fontSize(12).text('LinkedIn: linkedin.com/in/fadi-tawfig/');
+function addEntryText(doc: any, entry: any) {
+    doc.fontSize(14).text(entry.entry_title, { continued: true }).fontSize(10).text(entry.start_date + ' - ' + entry.end_date, { align: 'right' })
+        .moveDown();
+
+    const descriptionList = entry.entry_description.split('- ');
+    doc.list(descriptionList, { align: 'left' });
+    //doc.fontSize(12).text(entry.entry_description.replaceAll(/- /g, ''), { align: 'left' });
+    doc.moveDown();
+}
+
+function addHeader(doc: any) {
+    doc.fontSize(18).text('FADI TAWFIG', { align: 'left', continued: true })
+        .fontSize(12).text('faditawfig@gmail.com', { align: 'right' })
+    doc.fontSize(12).text('(416) 895-0558', { align: 'right' });
+    doc.fontSize(12).text('https://portfolio.faditawfig.com', { align: 'right' });
+    doc.fontSize(12).text('https://linkedin.com/in/fadi-tawfig/', { align: 'right' });
     doc.moveDown();
 }
