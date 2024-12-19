@@ -99,7 +99,6 @@ export default function Page() {
                     </OverlayTrigger>
                     <div
                         className='main-page-text'
-                        style={{ display: "flex", flexDirection: "row", gap: 3 }}
                     >
                         <p>Online resume & portfolio of Fadi Tawfig: </p>
                         <div

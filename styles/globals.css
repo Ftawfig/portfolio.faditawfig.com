@@ -67,7 +67,10 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
         height: 25vh;
     }
     .main-page-text {
+        display: flex;
+        flex-direction: row;
         align-items: flex-start;
+        gap: 3px;
     }
 }
 
@@ -77,7 +80,8 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     }
     .main-page-text {
         margin-top: 30px;
-        align-items: center;
+        flex-direction: column;
+        gap: 3px;
     }
     
 }
