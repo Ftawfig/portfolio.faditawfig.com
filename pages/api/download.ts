@@ -1,9 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { dbService } from '../../db';
 import { link } from 'fs';
+import path from 'path';
+
 const PDFDocument = require('pdfkit');
 
-const headingFont = 'fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf';
+const fontFile = 'Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf';
+path.join(process.cwd(),"public","fonts",fontFile);
+const headingFont = path.join(process.cwd(),"public","fonts",fontFile);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -72,7 +76,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 function addEntryText(doc: any, entry: any) {
     doc.font(headingFont);
 
-    doc.fontSize(14).text(entry.entry_title, { continued: true }).fontSize(10).text(entry.start_date + ' - ' + entry.end_date, { align: 'right' })
+    doc.fontSize(14).text(entry.entry_title);
+    doc.fontSize(12).text(entry.entry_category, { align: 'left', continued: true, underline: true })
+        .text(entry.start_date + ' - ' + entry.end_date, { align: 'right' })
         .moveDown();
 
     doc.font('Helvetica');
@@ -88,7 +94,7 @@ function addHeader(doc: any) {
     doc.fontSize(12);
     doc.text('faditawfig@gmail.com', { align: 'right', link: 'mailto:faditawfig.com' });
     doc.text('(416) 895-0558', { align: 'right', link: 'tel:+14168950558' });
-    doc.text('https://portfolio.faditawfig.com', { align: 'right', link: 'https://portfolio.faditawfig.com'});
-    doc.text('https://linkedin.com/in/fadi-tawfig/', { align: 'right', link: 'https://linkedin.com/in/fadi-tawfig/'});
+    doc.text('https://portfolio.faditawfig.com', { align: 'right', link: 'https://portfolio.faditawfig.com' });
+    doc.text('https://linkedin.com/in/fadi-tawfig/', { align: 'right', link: 'https://linkedin.com/in/fadi-tawfig/' });
     doc.moveDown();
 }
