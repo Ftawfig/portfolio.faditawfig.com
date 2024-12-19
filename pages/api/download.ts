@@ -56,7 +56,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             doc.moveDown();
             doc.fontSize(8).text('Generated on: ' + new Date().toLocaleString() + ' on https://portfolio.faditawfig.com', { align: "left" });
-            doc.image('public/logo.png', { align: 'right', width: 120, link: 'https://portfolio.faditawfig.com' });
+            doc.image(path.join(process.cwd(), "public", "logo.png"), { align: 'right', width: 120, link: 'https://portfolio.faditawfig.com' });
 
 
             // Finalize the PDF
