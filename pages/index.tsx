@@ -1,4 +1,4 @@
-import { Container, ListGroup } from 'react-bootstrap';
+import { Container, ListGroup, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import React from 'react';
 import Link from 'next/link';
 import { IoIosArrowForward } from "react-icons/io";
@@ -12,6 +12,7 @@ export default function Page() {
     const titles = ["Analytics engineer", "Web developer", "Hobbyist game-dev"];
     const [titleIndex, setTitleIndex] = useState(1);
     const [animationClass, setAnimationClass] = useState("");
+    const [tooltipText, setTooltipText] = useState("Click to copy URL");
 
     const switchInterval = 2000;
 
@@ -19,11 +20,9 @@ export default function Page() {
         const interval = setInterval(() => {
             // First trigger animation
             setAnimationClass("animated-text slide-up");
-            console.log("Animating titles");
 
             // After animation completes, update indexes and reset animation class
             setTimeout(() => {
-                console.log("Switching titles");
                 setTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
                 setAnimationClass("");
             }, 500); // Match this with CSS transition duration
@@ -33,6 +32,15 @@ export default function Page() {
         return () => clearInterval(interval);
     }, []);
 
+    const tooltip = (
+        <Tooltip id="button-tooltip">{tooltipText}</Tooltip>
+    );
+
+    const handleClick = () => {
+        navigator.clipboard.writeText("https://portfolio.faditawfig.com");
+        setTooltipText("Copied!");
+    }
+
     return (
         <>
             <Head>
@@ -41,10 +49,54 @@ export default function Page() {
             </Head>
             <Container className="hero">
                 <div className="hero-content">
-                    <h1>
-                        <span style={{ textDecoration: "overline" }}>portfolio</span>.
-                        <span style={{ textDecoration: "underline" }}>faditawfig</span>.com
-                    </h1>
+                    <OverlayTrigger placement="top" overlay={tooltip}>
+                    <Button
+                        style={{
+                            textAlign: "left",
+                            padding: 0,
+                            border: "none",
+                        }}
+                        variant="none" 
+                        onClick={handleClick}>
+                        <h1
+                            className="homepage-title"
+                            style={{
+                                marginBottom: 20,
+                                padding: 0,
+                                height: 100,
+                            }}
+                        >
+                            <span
+                                className='https'
+                                style={{
+                                    fontSize: 25,
+                                    paddingRight: 10,
+                                }}
+                            >
+                                https://
+                            </span>
+                            <span style={{
+                                borderTop: "4px solid",
+                                borderLeft: "4px solid",
+                                paddingLeft: 10,
+                            }}>
+                                portfolio</span>.
+                            <span
+                                style={{
+                                    textDecoration: "underline",
+                                }}
+                            >faditawfig</span>.
+                            <span style={{
+                                borderTop: "4px solid",
+                                borderRight: "4px solid",
+                                outlineOffset: 50,
+                                paddingRight: 10,
+                            }}>
+                                com
+                            </span>
+                        </h1>
+                    </Button>
+                    </OverlayTrigger>
                     <div
                         className='main-page-text'
                         style={{ display: "flex", flexDirection: "row", gap: 3 }}
@@ -61,30 +113,16 @@ export default function Page() {
                                 backgroundColor: "black",
                                 paddingLeft: 10,
                                 paddingRight: 10,
-                                alignContent: "center",
-                                justifyContent: "center",
-                                border: "3px solid var(--bs-warning-border-subtle)",
-                                borderLeft: "none",
-                                borderTop: "none",
+                                alignContent: "flex-start",
+                                justifyContent: "flex-start",
+                                borderBottom: "4px solid #ffd557",
+                                borderRadius: 2,
                                 width: 260,
                                 minWidth: 260,
-                                borderRadius: 2
                             }}
                         >
                             {
                                 <>
-                                    <p
-                                        key={0}
-                                        className={animationClass}
-                                        style={{
-                                            margin: 0,
-                                            fontWeight: "bold",
-                                            color: "white",
-                                            textAlign: "center"
-                                        }}
-                                    >
-                                        {titles[titleIndex - 1 < 0 ? titles.length - 1 : titleIndex - 1]}
-                                    </p>
                                     <p
                                         key={1}
                                         className={animationClass}
@@ -112,7 +150,6 @@ export default function Page() {
                                     </p>
                                 </>
                             }
-
                         </div>
                     </div>
                 </div>

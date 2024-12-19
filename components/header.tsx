@@ -42,8 +42,25 @@ export default function Header() {
                 <Navbar expand="md" className="navbar-main">
                     <Container className="nav-container">
                         <Link className="navbar-brand" href="/">
-                            <span style={{ textDecoration: "overline" }}>portfolio</span>.
-                            <span style={{ textDecoration: "underline" }}>faditawfig</span>.com
+                            <span style={{
+                                borderTop: "2px solid",
+                                borderLeft: "2px solid",
+                                paddingLeft: 10,
+                            }}>
+                                portfolio</span>.
+                            <span
+                                style={{
+                                    textDecoration: "underline",
+                                }}
+                            >faditawfig</span>.
+                            <span style={{
+                                borderTop: "2px solid",
+                                borderRight: "2px solid",
+                                outlineOffset: 50,
+                                paddingRight: 10,
+                            }}>
+                                com
+                            </span>
                         </Link>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse>
@@ -57,7 +74,7 @@ export default function Header() {
                         <Button
                             onClick={handleClick}
                             variant={"outline" + (theme === 'dark' ? '-light' : '-dark')}
-                            style={{ borderRadius: 2}}
+                            style={{ borderRadius: 2 }}
                         >
                             {theme === 'dark' ? <MdDarkMode /> : <MdOutlineDarkMode />}
                         </Button>

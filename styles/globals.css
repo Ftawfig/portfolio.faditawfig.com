@@ -18,6 +18,12 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     padding-bottom: 12px;
 }
 
+.nav-link {
+    font-weight: 700;
+    font-family: "Space Mono", serif !important;
+
+}
+
 .nav-container {
     max-width: 1000px;
 }
@@ -207,4 +213,29 @@ div.row {
 
 .slide-up {
     transform: translateY(-100%);
+}
+
+.https {
+    letter-spacing: -15px;
+    display: block;
+    opacity: 0;
+    transform: translateY(-50%) !important;
+
+}
+
+.homepage-title:hover {
+    transform: translateY(15%);
+    transition: all 0.2s ease;
+}
+
+.homepage-title:hover .https {
+    letter-spacing: normal;
+    display: block;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(15%);
+    transition: all 0.2s ease;
 }

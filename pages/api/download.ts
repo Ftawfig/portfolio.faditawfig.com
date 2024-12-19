@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { dbService } from '../../db';
+import { link } from 'fs';
 const PDFDocument = require('pdfkit');
 
+const headingFont = 'fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf';
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
     if (req.method === 'GET') {
         try {
             const data = await dbService.getResume();
@@ -20,9 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             // Create a new PDF document
             const doc = new PDFDocument({ font: 'Helvetica' });
-            //doc.registerFont('default', 'fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf', 'SpaceGrotesk');
 
-            //doc.font('fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf');
 
             // Set response headers for PDF download
             res.setHeader('Content-Type', 'application/pdf');
@@ -35,19 +37,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             addHeader(doc);
 
             // resume entries
+            doc.font(headingFont);
             doc.fontSize(16).text('Experience', { align: 'center' }).moveDown();
             data.filter(e => e.entry_type === "resume").forEach((entry: any) => {
                 addEntryText(doc, entry);
             });
 
             // education entries
+            doc.font(headingFont);
             doc.fontSize(16).text('Education', { align: 'center' }).moveDown();
             data.filter(e => e.entry_type === "education").forEach((entry: any) => {
                 addEntryText(doc, entry);
             });
 
 
-            doc.fontSize(10).text('Generated on: ' + new Date().toLocaleString() + ' by https://portfolio.faditawfig.com');
+            doc.moveDown();
+            doc.fontSize(8).text('Generated on: ' + new Date().toLocaleString() + ' on https://portfolio.faditawfig.com', { align: "left" });
+            doc.image('public/logo.png', { align: 'right', width: 120, link: 'https://portfolio.faditawfig.com' });
+
 
             // Finalize the PDF
             doc.end();
@@ -65,9 +72,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 function addEntryText(doc: any, entry: any) {
+    doc.font(headingFont);
+
     doc.fontSize(14).text(entry.entry_title, { continued: true }).fontSize(10).text(entry.start_date + ' - ' + entry.end_date, { align: 'right' })
         .moveDown();
 
+    doc.font('Helvetica');
     const descriptionList = entry.entry_description.split('- ');
     doc.list(descriptionList, { align: 'left' });
     //doc.fontSize(12).text(entry.entry_description.replaceAll(/- /g, ''), { align: 'left' });
@@ -75,10 +85,13 @@ function addEntryText(doc: any, entry: any) {
 }
 
 function addHeader(doc: any) {
-    doc.fontSize(18).text('FADI TAWFIG', { align: 'left', continued: true })
-        .fontSize(12).text('faditawfig@gmail.com', { align: 'right' })
-    doc.fontSize(12).text('(416) 895-0558', { align: 'right' });
-    doc.fontSize(12).text('https://portfolio.faditawfig.com', { align: 'right' });
-    doc.fontSize(12).text('https://linkedin.com/in/fadi-tawfig/', { align: 'right' });
+    doc.font(headingFont);
+    doc.fontSize(18).text('FADI TAWFIG', { align: 'left', continued: true });
+    doc.fontSize(12);
+    doc.font('Helvetica');
+    doc.text('faditawfig@gmail.com', { align: 'right' })
+    doc.text('(416) 895-0558', { align: 'right' });
+    doc.text('https://portfolio.faditawfig.com', { align: 'right' });
+    doc.text('https://linkedin.com/in/fadi-tawfig/', { align: 'right' });
     doc.moveDown();
 }
