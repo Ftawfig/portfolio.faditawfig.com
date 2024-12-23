@@ -30,7 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // Create a new PDF document
             const doc = new PDFDocument({ font: 'Helvetica' });
 
-
             // Set response headers for PDF download
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename=fadi_tawfig_resume.pdf');
