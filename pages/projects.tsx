@@ -29,8 +29,6 @@ export default function Projects() {
 
     const projects = data?.projects;
 
-    console.log(projects);
-
     // if the tag to be selected is the same as the currently selected tag, set the selected tag to null
     // otherwise, set the selected tag to the newly selected tag
     const selectTag = (tag) => {

@@ -100,8 +100,11 @@ export default function Page() {
                     <div
                         className='main-page-text'
                     >
-                        <p>Online resume & portfolio of Fadi Tawfig: </p>
+                        <p>
+                            Online resume & portfolio of Fadi Tawfig:
+                        </p>
                         <div
+                            className="animated-text-container"
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
@@ -114,7 +117,9 @@ export default function Page() {
                                 paddingRight: 10,
                                 alignContent: "flex-start",
                                 justifyContent: "flex-start",
-                                borderBottom: "4px solid #ffd557",
+                                //borderRight: "4px solid #ffd557",
+                                //borderBottom: "4px solid #ffd557",
+                                boxShadow: "8px 8px  #ffd557",
                                 borderRadius: 2,
                                 width: 260,
                                 minWidth: 260,
